@@ -22,8 +22,8 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
-          <h3 className="text-2xl font-extrabold tracking-tight text-white">VCE INFRA</h3>
-          <p className="mt-2 text-sm uppercase tracking-[0.16em] text-cyan-200">Contractor & Engineers</p>
+          <h3 className="text-2xl font-extrabold tracking-tight text-white">VCE</h3>
+          <p className="mt-2 text-sm uppercase tracking-[0.16em] text-cyan-200">Infrastructure & Management</p>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
             Precision engineering partner for sewer, fire line, water treatment, and infrastructure delivery. We execute with safety, quality, and on-time accountability.
           </p>

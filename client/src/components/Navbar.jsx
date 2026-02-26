@@ -22,8 +22,8 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="VCE Logo" className="h-12 w-12 rounded-full border border-white/20 object-cover" />
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">VCE Infra</p>
-            <p className="text-sm font-bold text-white">Contractor & Engineers</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">VCE</p>
+            <p className="text-sm font-bold text-white">Infrastructure & Management</p>
           </div>
         </Link>
 

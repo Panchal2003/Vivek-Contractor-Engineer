@@ -219,15 +219,7 @@ export default function Home() {
         </div>
       </section>
 
-      <CTASection
-        title="Kickstart Your Project Today!"
-        subtitle="Our expert team is ready to turn your vision into reality."
-        buttonText="Contact Us"
-        to="/contact"
-        gradientClasses="from-green-500 via-blue-500 to-purple-600"
-      />
-
-      <section id="contact" className="relative px-4 pb-20 sm:px-6 lg:px-8">
+      <section id="contact" className="relative px-4 pb-20 sm:px-6 lg:px-8 mt-10">
         <div className="mx-auto max-w-4xl rounded-3xl border border-cyan-200/25 bg-slate-900/75 p-6 text-center sm:p-10">
           <h3 className="text-2xl font-extrabold text-white sm:text-3xl">Ready For Your Next Infrastructure Milestone?</h3>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">

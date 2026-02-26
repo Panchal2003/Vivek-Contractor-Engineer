@@ -88,12 +88,12 @@ export default function HeroSection({
                   <ArrowRight className="h-4 w-4" />
                 </a>
               )}
-              <a
+              {/* <a
                 href="#contact"
                 className="inline-flex items-center rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
               >
                 Request Consultation
-              </a>
+              </a> */}
             </div>
 
             <div className="mt-9 grid gap-3 sm:grid-cols-3">
