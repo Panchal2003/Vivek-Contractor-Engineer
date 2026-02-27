@@ -106,8 +106,8 @@ export default function Home() {
 
       <AboutSection
         title="About"
-        highlight="VCE"
-        description="VCE is a trusted infrastructure contractor delivering high-quality sewer systems, fire line installations, and heavy engineering projects across India with precision and safety."
+        highlight="Vivek Contractor & Engineer"
+        description="VCE is a trusted contractor delivering high-quality sewer systems, fire line installations, and heavy engineering projects across India with precision and safety."
         features={[
           { icon: "wrench", color: "blue", animation: "animate-bounceSoft", text: "Government Infrastructure Projects" },
           { icon: "cog", color: "red", animation: "animate-rotateSlow", text: "Advanced Machinery & Skilled Engineers" },
@@ -140,7 +140,7 @@ export default function Home() {
                 <Sparkles className="h-4 w-4" />
                 Core Strengths
               </p>
-              <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Why Professional Teams Choose VCE</h2>
+              <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Why Professional Teams Choose Vivek Contractor & Engineer</h2>
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -221,7 +221,7 @@ export default function Home() {
 
       <section id="contact" className="relative px-4 pb-20 sm:px-6 lg:px-8 mt-10">
         <div className="mx-auto max-w-4xl rounded-3xl border border-cyan-200/25 bg-slate-900/75 p-6 text-center sm:p-10">
-          <h3 className="text-2xl font-extrabold text-white sm:text-3xl">Ready For Your Next Infrastructure Milestone?</h3>
+          <h3 className="text-2xl font-extrabold text-white sm:text-3xl">Ready For Your Next Maintaining Project?</h3>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
             Share your scope, drawings, or tender details. Our team will provide a practical execution strategy with timelines and resource planning.
           </p>

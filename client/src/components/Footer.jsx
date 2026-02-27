@@ -22,8 +22,8 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
-          <h3 className="text-2xl font-extrabold tracking-tight text-white">VCE</h3>
-          <p className="mt-2 text-sm uppercase tracking-[0.16em] text-cyan-200">Infrastructure & Management</p>
+          <h3 className="text-2xl font-extrabold tracking-tight text-white">Vivek</h3>
+          <p className="mt-2 text-sm uppercase tracking-[0.16em] text-cyan-200">Contractor & Engineer</p>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
             Precision engineering partner for sewer, fire line, water treatment, and infrastructure delivery. We execute with safety, quality, and on-time accountability.
           </p>
@@ -31,6 +31,7 @@ export default function Footer() {
             <span className="rounded-full border border-cyan-200/30 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-100">Government Projects</span>
             <span className="rounded-full border border-cyan-200/30 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-100">Industrial Utilities</span>
             <span className="rounded-full border border-cyan-200/30 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-100">Civil Infrastructure</span>
+             <span className="rounded-full border border-cyan-200/30 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-100">Maintenance</span>
           </div>
         </div>
 
@@ -64,9 +65,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/10 px-4 py-5 text-center text-xs text-slate-400 sm:px-6 lg:px-8">
-        &copy; {new Date().getFullYear()} VCE Infra. All rights reserved.
-      </div>
+  <div className="relative z-10 border-t border-white/10 px-4 py-5 text-center text-xs text-slate-400 sm:px-6 lg:px-8">
+  &copy; 2000 - {new Date().getFullYear()} Vivek Contractor & Engineer. All rights reserved.
+</div>
     </footer>
   );
 }

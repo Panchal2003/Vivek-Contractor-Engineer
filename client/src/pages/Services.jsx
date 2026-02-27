@@ -13,7 +13,7 @@ import PortfolioSection from "../components/PortfolioSection";
 export default function ServicePage() {
   // Sample data for reusable components
   const advantages = [
-    "15+ Years of Experience",
+    "25+ Years of Experience",
 
     "On-time Project Delivery",
     "Cost-effective & Transparent Pricing",
@@ -29,8 +29,8 @@ export default function ServicePage() {
   ];
 
   const testimonials = [
-    { name: "Rohit Sharma", feedback: "VCE delivered my dream home on time with perfect quality!" },
-    { name: "Anjali Mehta", feedback: "Professional team, excellent project management and support." },
+    { name: "Rohit Sharma", feedback: "Vivek Contractor & Engineer delivered my project on time with excellent quality and attention to detail." },
+    { name: "Anjali Mehta", feedback: "Professional team, excellent project management and support throughout the process." },
   ];
 
   const portfolioProjects = [
@@ -52,7 +52,7 @@ export default function ServicePage() {
       <HeroSection
         title="Premium Construction & Engineering Services"
         highlightText="Engineering"
-        subtitle="Vivek Contractor & Engineer (VCE) provides high-quality construction and engineering solutions across India with over 15 years of experience."
+        subtitle="Vivek Contractor & Engineer (VCE) provides high-quality construction and engineering solutions across India with over 25 years of experience."
         buttonText="Get a Free Quote"
         buttonLink="/contact"
         videoSrc="/videos/construction.mp4"
@@ -78,7 +78,7 @@ export default function ServicePage() {
 
       {/* Call To Action */}
       <CTASection
-        title="Ready To Start Your Infrastructure Project?"
+        title="Ready To Start Your Maintenance Project?"
         subtitle="Let’s build something extraordinary together."
         buttonText="Contact Us"
         to="/contact"

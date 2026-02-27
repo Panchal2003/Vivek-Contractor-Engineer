@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop"; // 👈 add this
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -15,11 +16,11 @@ import Contact from "./pages/Contact";
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <ScrollToTop /> {/* 👈 add this here */}
 
+      <div className="flex flex-col min-h-screen">
         <Navbar />
 
-        {/* Main Content */}
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -34,7 +35,6 @@ function App() {
         </main>
 
         <Footer />
-
       </div>
     </Router>
   );

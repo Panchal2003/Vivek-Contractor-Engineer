@@ -28,7 +28,7 @@ export default function HeroSection({
   ];
 
   const highlights = [
-    { icon: Award, text: "15+ Years Industry Track Record" },
+    { icon: Award, text: "25+ Years Industry Track Record" },
     { icon: ShieldCheck, text: "ISO-Aligned Safety Practices" },
     { icon: Building2, text: "Government & Private Contracts" },
   ];

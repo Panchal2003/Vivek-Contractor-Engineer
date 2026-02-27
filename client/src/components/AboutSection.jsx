@@ -76,7 +76,7 @@ export default function AboutSection({
                 <p className="text-xs text-slate-200">Projects Delivered</p>
               </div>
               <div className="rounded-xl border border-orange-300/25 bg-orange-400/10 p-3">
-                <p className="text-xl font-extrabold text-white">15+</p>
+                <p className="text-xl font-extrabold text-white">25+</p>
                 <p className="text-xs text-slate-200">Years Experience</p>
               </div>
               <div className="rounded-xl border border-white/20 bg-slate-900/65 p-3">

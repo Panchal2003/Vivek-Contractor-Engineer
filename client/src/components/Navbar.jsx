@@ -22,8 +22,8 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="VCE Logo" className="h-12 w-12 rounded-full border border-white/20 object-cover" />
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">VCE</p>
-            <p className="text-sm font-bold text-white">Infrastructure & Management</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">Vivek</p>
+            <p className="text-sm font-bold text-white">Contractor & Engineer</p>
           </div>
         </Link>
 
@@ -43,13 +43,15 @@ export default function Navbar() {
           ))}
         </div>
 
-        <Link
-          to="/contact"
-          className="hidden items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-xs font-bold text-slate-950 transition hover:bg-orange-400 lg:inline-flex"
-        >
-          <Phone className="h-4 w-4" />
-          Get Quote
-        </Link>
+      <a
+  href="https://wa.me/919266115666?text=Hello%20Vivek%20Contractor%20%26%20Engineer,%20I%20want%20to%20get%20a%20quotation."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hidden items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-xs font-bold text-slate-950 transition hover:bg-orange-400 lg:inline-flex"
+>
+  <Phone className="h-4 w-4" />
+  Get Quote
+</a>
 
         <button
           type="button"

@@ -6,8 +6,8 @@ export default function About() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <HeroSection
-        title="About VCE M&I - Building India's Infrastructure"
-        highlightText="VCE M&I"
+        title="About Vivek Contractor & Engineer - Maintaining Sewer Treatment Plants Across India"
+        highlightText="Vivek Contractor & Engineer"
         subtitle="Delivering high-quality infrastructure solutions across India with precision, compliance, and execution discipline."
         buttonText="Talk To Our Team"
         buttonLink="/contact"
@@ -17,7 +17,7 @@ export default function About() {
       <AboutSection
         title="Who We Are"
         subtitle="Engineering excellence with nationwide delivery capability."
-        description="VCE Infra is a trusted contractor for sewer maintenance, fire line installation, water treatment, and heavy engineering works. We execute government and private projects with quality control, safety-first culture, and reliable timelines."
+        description="Vivek Contractor & Engineer is a trusted contractor for sewer maintenance, fire line installation, water treatment, and heavy engineering works. We execute government and private projects with quality control, safety-first culture, and reliable timelines."
         features={[
           { icon: "wrench", text: "Sewer Line Maintenance", color: "blue" },
           { icon: "hammer", text: "Fire Line Installation", color: "red" },
@@ -64,7 +64,7 @@ export default function About() {
       <AboutSection
         title="Our Expertise"
         subtitle="Skilled workforce, modern tools, and execution-ready systems."
-        description="VCE Infra combines technology, planning, and experienced site teams to execute complex projects on time and within budget. We maintain strict quality checks and practical, safety-led workflows at every stage."
+        description="Vivek Contractor & Engineer combines technology, planning, and experienced site teams to execute complex projects on time and within budget. We maintain strict quality checks and practical, safety-led workflows at every stage."
         features={[
           { icon: "cog", text: "Sustainable Practices", color: "blue" },
           { icon: "hammer", text: "Innovative Engineering", color: "red" },
