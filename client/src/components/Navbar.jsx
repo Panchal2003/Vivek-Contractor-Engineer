@@ -1,11 +1,41 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, Phone, X } from "lucide-react";
 import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const longPressTimerRef = useRef(null);
+  const longPressTriggeredRef = useRef(false);
+
+  const startLongPress = () => {
+    longPressTriggeredRef.current = false;
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+    }
+    longPressTimerRef.current = setTimeout(() => {
+      longPressTriggeredRef.current = true;
+      setIsOpen(false);
+      navigate("/admin/login");
+    }, 2500);
+  };
+
+  const endLongPress = () => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  };
+
+  const handleMenuClick = () => {
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false;
+      return;
+    }
+    setIsOpen((prev) => !prev);
+  };
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -55,7 +85,13 @@ export default function Navbar() {
 
         <button
           type="button"
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={handleMenuClick}
+          onTouchStart={startLongPress}
+          onTouchEnd={endLongPress}
+          onTouchCancel={endLongPress}
+          onMouseDown={startLongPress}
+          onMouseUp={endLongPress}
+          onMouseLeave={endLongPress}
           className="inline-flex items-center justify-center rounded-lg border border-white/20 p-2 text-white md:hidden"
           aria-label="Toggle navigation"
         >

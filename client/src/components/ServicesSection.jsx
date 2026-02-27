@@ -1,7 +1,45 @@
+import { useEffect, useState } from "react";
 import { Settings2, Sparkles } from "lucide-react";
 import ServiceCard from "./ServiceCard";
+import { servicesAPI } from "../api/axios";
+
+const fallbackServices = [
+  {
+    title: "Sewer Line Maintenance",
+    description: "Installation, rehabilitation, and preventive maintenance for municipal and industrial sewer networks.",
+    icon: "fa-solid fa-water",
+    tag: "Utility Networks",
+  },
+  {
+    title: "Fire Line Installation",
+    description: "Complete fire pipeline routing, hydrant integration, and testing support for compliance-ready safety systems.",
+    icon: "fa-solid fa-fire-flame-curved",
+    tag: "Fire Safety",
+  },
+  {
+    title: "Heavy Drilling & Civil Support",
+    description: "Large-scale drilling, utility trenching, and equipment-backed field operations for critical infrastructure.",
+    icon: "fa-solid fa-screwdriver-wrench",
+    tag: "Heavy Execution",
+  },
+];
 
 export default function ServicesSection() {
+  const [services, setServices] = useState(fallbackServices);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const { data } = await servicesAPI.list();
+        setServices(data.filter((item) => item.isActive));
+      } catch {
+        setServices(fallbackServices);
+      }
+    };
+
+    load();
+  }, []);
+
   return (
     <section className="relative overflow-hidden py-20 sm:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(14,116,144,0.2),transparent_45%),radial-gradient(circle_at_88%_42%,rgba(251,146,60,0.15),transparent_48%)]"></div>
@@ -27,24 +65,21 @@ export default function ServicesSection() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-3">
-          <ServiceCard
-            icon="fa-solid fa-water"
-            title="Sewer Line Maintenance"
-            desc="Installation, rehabilitation, and preventive maintenance for municipal and industrial sewer networks."
-            tag="Utility Networks"
-          />
-          <ServiceCard
-            icon="fa-solid fa-fire-flame-curved"
-            title="Fire Line Installation"
-            desc="Complete fire pipeline routing, hydrant integration, and testing support for compliance-ready safety systems."
-            tag="Fire Safety"
-          />
-          <ServiceCard
-            icon="fa-solid fa-screwdriver-wrench"
-            title="Heavy Drilling & Civil Support"
-            desc="Large-scale drilling, utility trenching, and equipment-backed field operations for critical infrastructure."
-            tag="Heavy Execution"
-          />
+          {services.length > 0 ? (
+            services.map((service) => (
+              <ServiceCard
+                key={service._id || service.title}
+                icon={service.icon}
+                title={service.title}
+                desc={service.description}
+                tag={service.tag}
+              />
+            ))
+          ) : (
+            <p className="col-span-full rounded-xl border border-slate-700 bg-slate-900/70 p-4 text-sm text-slate-300">
+              No active services available right now.
+            </p>
+          )}
         </div>
       </div>
     </section>

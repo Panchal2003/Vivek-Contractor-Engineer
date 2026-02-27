@@ -1,44 +1,59 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import HeroSection from "../components/HeroSection";
-import ServicesSection from "../components/ServicesSection";
 import StatsSection from "../components/StatsSection";
 import CTASection from "../components/CTASection";
-
-// Reusable Components
 import WhyChooseUs from "../components/WhyChooseUs";
 import ProcessSection from "../components/ProcessSection";
 import TestimonialsSection from "../components/TestimonialsSection";
-import PortfolioSection from "../components/PortfolioSection";
+import ServiceCard from "../components/ServiceCard";
+import { servicesAPI } from "../api/axios";
+
+const fallbackServices = [
+  {
+    title: "Sewer Line Maintenance",
+    description: "Installation, rehabilitation, and preventive maintenance for sewer networks.",
+    icon: "fa-solid fa-water",
+    tag: "Utility Networks",
+  },
+  {
+    title: "Fire Line Installation",
+    description: "Fire pipeline routing, hydrant integration, and testing support.",
+    icon: "fa-solid fa-fire-flame-curved",
+    tag: "Fire Safety",
+  },
+  {
+    title: "Heavy Drilling & Civil Support",
+    description: "Large-scale drilling and field operations for infrastructure projects.",
+    icon: "fa-solid fa-screwdriver-wrench",
+    tag: "Heavy Execution",
+  },
+];
 
 export default function ServicePage() {
-  // Sample data for reusable components
-  const advantages = [
-    "25+ Years of Experience",
+  const [serviceItems, setServiceItems] = useState([]);
+  const [isError, setIsError] = useState(false);
 
-    "On-time Project Delivery",
-    "Cost-effective & Transparent Pricing",
-    "Nationwide Service Coverage",
-  ];
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const { data } = await servicesAPI.list();
+        setServiceItems(data.filter((item) => item.isActive));
+        setIsError(false);
+      } catch {
+        setServiceItems(fallbackServices);
+        setIsError(true);
+      }
+    };
 
-  const processSteps = [
-    "Consultation & Planning",
-    "Design & Approval",
-    "Material Selection & Procurement",
-    "Construction & Execution",
-    "Quality Check & Handover",
-  ];
+    load();
+  }, []);
 
+  const advantages = ["25+ Years of Experience", "On-time Project Delivery", "Cost-effective & Transparent Pricing", "Nationwide Service Coverage"];
+  const processSteps = ["Consultation & Planning", "Design & Approval", "Material Selection & Procurement", "Construction & Execution", "Quality Check & Handover"];
   const testimonials = [
     { name: "Rohit Sharma", feedback: "Vivek Contractor & Engineer delivered my project on time with excellent quality and attention to detail." },
     { name: "Anjali Mehta", feedback: "Professional team, excellent project management and support throughout the process." },
   ];
-
-  const portfolioProjects = [
-    { title: "Luxury Villa, Uttar Pradesh", image: "/images/project1.jpg" },
-    { title: "Office Complex, Delhi", image: "/images/project2.jpg" },
-    { title: "Shopping Mall, Mumbai", image: "/images/project3.jpg" },
-  ];
-
   const statsData = [
     { label: "Years Experience", value: 15, icon: "fa-solid fa-hard-hat", appendPlus: true },
     { label: "Projects Completed", value: 120, icon: "fa-solid fa-building", appendPlus: true },
@@ -48,7 +63,6 @@ export default function ServicePage() {
 
   return (
     <div className="font-sans">
-      {/* Hero Section */}
       <HeroSection
         title="Premium Construction & Engineering Services"
         highlightText="Engineering"
@@ -58,31 +72,29 @@ export default function ServicePage() {
         videoSrc="/videos/construction.mp4"
       />
 
-      {/* Services Section */}
-      <ServicesSection />
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_12%,rgba(14,116,144,0.2),transparent_45%),radial-gradient(circle_at_88%_42%,rgba(251,146,60,0.15),transparent_48%)]"></div>
+        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff1c_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1c_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-5 md:grid-cols-3">
+            {serviceItems.map((service) => (
+              <ServiceCard key={service._id || service.title} icon={service.icon} title={service.title} desc={service.description} tag={service.tag} />
+            ))}
+          </div>
+          {serviceItems.length === 0 ? (
+            <p className="mt-4 rounded-xl border border-slate-700 bg-slate-900/70 p-4 text-sm text-slate-300">
+              {isError ? "Unable to load live services. Showing fallback if available." : "No active services available right now."}
+            </p>
+          ) : null}
+        </div>
+      </section>
 
-      {/* Stats / Experience */}
       <StatsSection statsData={statsData} />
-
-      {/* Why Choose Us */}
       <WhyChooseUs points={advantages} />
-
-      {/* Process / How We Work */}
       <ProcessSection steps={processSteps} />
-
-      {/* Portfolio / Projects */}
-      <PortfolioSection projects={portfolioProjects} />
-
-      {/* Testimonials / Client Feedback */}
       <TestimonialsSection testimonials={testimonials} />
 
-      {/* Call To Action */}
-      <CTASection
-        title="Ready To Start Your Maintenance Project?"
-        subtitle="Let’s build something extraordinary together."
-        buttonText="Contact Us"
-        to="/contact"
-      />
+      <CTASection title="Ready To Start Your Maintenance Project?" subtitle="Lets build something extraordinary together." buttonText="Contact Us" to="/contact" />
     </div>
   );
 }

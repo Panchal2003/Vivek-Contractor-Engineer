@@ -1,5 +1,5 @@
 import { Loader2, Send } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const INITIAL_FORM = {
   name: "",
@@ -11,11 +11,26 @@ const INITIAL_FORM = {
   message: "",
 };
 
-export default function ContactForm({ onSubmit, className = "" }) {
+const FALLBACK_OPTIONS = [
+  "Sewer Line Maintenance",
+  "Fire Line Installation",
+  "Heavy Drilling",
+  "Water Treatment",
+  "Government Tender",
+];
+
+export default function ContactForm({ onSubmit, className = "", serviceOptions = [] }) {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const options = useMemo(() => {
+    if (serviceOptions.length > 0) {
+      return serviceOptions;
+    }
+    return FALLBACK_OPTIONS;
+  }, [serviceOptions]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -37,7 +52,8 @@ export default function ContactForm({ onSubmit, className = "" }) {
       setFormData(INITIAL_FORM);
     } catch (error) {
       setStatus("error");
-      setErrorMsg(error?.message || "Unable to submit right now. Please try again.");
+      const apiMessage = error?.response?.data?.message;
+      setErrorMsg(apiMessage || error?.message || "Unable to submit right now. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -112,11 +128,11 @@ export default function ContactForm({ onSubmit, className = "" }) {
             className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
           >
             <option value="">Select service</option>
-            <option value="Sewer Line Maintenance">Sewer Line Maintenance</option>
-            <option value="Fire Line Installation">Fire Line Installation</option>
-            <option value="Heavy Drilling">Heavy Drilling</option>
-            <option value="Water Treatment">Water Treatment</option>
-            <option value="Government Tender">Government Tender</option>
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
           </select>
         </div>
 

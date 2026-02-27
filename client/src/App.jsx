@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import "./index.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ScrollToTop from "./components/ScrollToTop"; // 👈 add this
+import ScrollToTop from "./components/ScrollToTop";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -13,13 +13,24 @@ import Workforce from "./pages/Workforce";
 import Tenders from "./pages/Tenders";
 import Contact from "./pages/Contact";
 
-function App() {
-  return (
-    <Router>
-      <ScrollToTop /> {/* 👈 add this here */}
+import Dashboard from "./admin/Dashboard";
+import AdminOverview from "./admin/AdminOverview";
+import ManageServices from "./admin/ManageServices";
+import ManageProjects from "./admin/ManageProjects";
+import ManageMachinery from "./admin/ManageMachinery";
+import ManageInquiries from "./admin/ManageInquiries";
+import AdminLogin from "./admin/AdminLogin";
+import AdminProtectedRoute from "./admin/AdminProtectedRoute";
 
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
+function AppLayout() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  return (
+    <>
+      <ScrollToTop />
+      <div className="flex min-h-screen flex-col">
+        {!isAdminRoute ? <Navbar /> : null}
 
         <main className="flex-grow">
           <Routes>
@@ -31,11 +42,30 @@ function App() {
             <Route path="/workforce" element={<Workforce />} />
             <Route path="/tenders" element={<Tenders />} />
             <Route path="/contact" element={<Contact />} />
+
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route element={<AdminProtectedRoute />}>
+              <Route path="/admin" element={<Dashboard />}>
+                <Route index element={<AdminOverview />} />
+                <Route path="services" element={<ManageServices />} />
+                <Route path="projects" element={<ManageProjects />} />
+                <Route path="machinery" element={<ManageMachinery />} />
+                <Route path="inquiries" element={<ManageInquiries />} />
+              </Route>
+            </Route>
           </Routes>
         </main>
 
-        <Footer />
+        {!isAdminRoute ? <Footer /> : null}
       </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppLayout />
     </Router>
   );
 }

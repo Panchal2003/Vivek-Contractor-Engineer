@@ -3,9 +3,9 @@ import { Drill, HardHat, Mail, MapPin, Phone, Wrench } from "lucide-react";
 
 export default function Footer() {
   const floatingTools = [
-    { icon: Wrench, className: "top-[18%] left-[10%] animate-float-slow" },
+    { icon: Wrench, className: "top-[18%] left-[4%] animate-float-slow" },
     { icon: HardHat, className: "top-[24%] right-[9%] animate-float-delay" },
-    { icon: Drill, className: "bottom-[22%] left-[18%] animate-float" },
+    { icon: Drill, className: "bottom-[18%] left-[18%] animate-float" },
     { icon: Wrench, className: "bottom-[18%] right-[14%] animate-float-slow" },
   ];
 

@@ -22,8 +22,8 @@ export default function HeroSection({
   const floatingTools = [
     { icon: Wrench, label: "Maintenance", className: "top-[16%] left-[8%] animate-float-slow" },
     { icon: Drill, label: "Drilling", className: "top-[24%] right-[9%] animate-float-delay" },
-    { icon: HardHat, label: "Safety", className: "top-[68%] left-[5%] animate-float" },
-    { icon: Pickaxe, label: "Infrastructure", className: "top-[72%] right-[8%] animate-float-slow" },
+    { icon: HardHat, label: "Safety", className: "top-[65%] left-[20%] animate-float" },
+    { icon: Pickaxe, label: "Infrastructure", className: "top-[65%] right-[8%] animate-float-slow" },
     { icon: CircleGauge, label: "Quality", className: "top-[10%] left-[46%] animate-float-delay" },
   ];
 
