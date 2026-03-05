@@ -16,20 +16,24 @@ export default function Dashboard() {
   const [stats, setStats] = useState({ services: 0, projects: 0, completedProjects: 0, machinery: 0, inquiries: 0 });
 
   const loadStats = async () => {
-    const [services, projects, machinery, inquiries] = await Promise.all([
-      servicesAPI.list(),
-      projectsAPI.list(),
-      machineryAPI.list(),
-      inquiriesAPI.list().catch(() => ({ data: [] })),
-    ]);
+    try {
+      const [services, projects, machinery, inquiries] = await Promise.all([
+        servicesAPI.list().catch(() => ({ data: [] })),
+        projectsAPI.list().catch(() => ({ data: [] })),
+        machineryAPI.list().catch(() => ({ data: [] })),
+        inquiriesAPI.list().catch(() => ({ data: [] })),
+      ]);
 
-    setStats({
-      services: services.data.length,
-      projects: projects.data.length,
-      completedProjects: projects.data.filter((project) => project.completed).length,
-      machinery: machinery.data.length,
-      inquiries: inquiries.data.length,
-    });
+      setStats({
+        services: services.data.length,
+        projects: projects.data.length,
+        completedProjects: projects.data.filter((project) => project.completed).length,
+        machinery: machinery.data.length,
+        inquiries: inquiries.data.length,
+      });
+    } catch {
+      // stats are non-critical, ignore errors
+    }
   };
 
   useEffect(() => {

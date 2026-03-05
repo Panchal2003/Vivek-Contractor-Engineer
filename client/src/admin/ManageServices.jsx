@@ -28,27 +28,42 @@ export default function ManageServices() {
 
   const createService = async (payload) => {
     setError("");
-    await servicesAPI.create(payload);
-    setMessage("Service added");
-    await loadServices();
-    await refreshStats();
+    setMessage("");
+    try {
+      await servicesAPI.create(payload);
+      setMessage("Service added");
+      await loadServices();
+      await refreshStats().catch(() => {});
+    } catch (err) {
+      setError(err?.response?.data?.message || "Failed to create service");
+    }
   };
 
   const updateService = async (payload) => {
     setError("");
-    await servicesAPI.update(editing._id, payload);
-    setMessage("Service updated");
-    setEditing(null);
-    await loadServices();
-    await refreshStats();
+    setMessage("");
+    try {
+      await servicesAPI.update(editing._id, payload);
+      setMessage("Service updated");
+      setEditing(null);
+      await loadServices();
+      await refreshStats().catch(() => {});
+    } catch (err) {
+      setError(err?.response?.data?.message || "Failed to update service");
+    }
   };
 
   const deleteService = async (id) => {
     setError("");
-    await servicesAPI.remove(id);
-    setMessage("Service deleted");
-    await loadServices();
-    await refreshStats();
+    setMessage("");
+    try {
+      await servicesAPI.remove(id);
+      setMessage("Service deleted");
+      await loadServices();
+      await refreshStats().catch(() => {});
+    } catch (err) {
+      setError(err?.response?.data?.message || "Failed to delete service");
+    }
   };
 
   return (
