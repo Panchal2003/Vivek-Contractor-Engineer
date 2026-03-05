@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Settings2, Sparkles } from "lucide-react";
-import ServiceCard from "./ServiceCard";
 import { servicesAPI } from "../api/axios";
 
 const fallbackServices = [
@@ -66,14 +65,14 @@ export default function ServicesSection() {
 
         <div className="grid gap-5 md:grid-cols-3">
           {services.length > 0 ? (
-            services.map((service) => (
-              <ServiceCard
+            services.map((service, index) => (
+              <article
                 key={service._id || service.title}
-                icon={service.icon}
-                title={service.title}
-                desc={service.description}
-                tag={service.tag}
-              />
+                className="rounded-2xl border border-white/15 bg-slate-900/75 p-5 backdrop-blur-md transition hover:border-cyan-300/35"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-cyan-200">Service {index + 1}</p>
+                <h3 className="mt-2 text-lg font-bold text-white">{service.title}</h3>
+              </article>
             ))
           ) : (
             <p className="col-span-full rounded-xl border border-slate-700 bg-slate-900/70 p-4 text-sm text-slate-300">

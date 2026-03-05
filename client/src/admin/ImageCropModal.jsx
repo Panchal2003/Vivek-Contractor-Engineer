@@ -13,7 +13,14 @@ function loadImage(src) {
   });
 }
 
-export default function ImageCropModal({ src, onCancel, onApplyOriginal, onApplyCropped }) {
+export default function ImageCropModal({
+  src,
+  onCancel,
+  onApplyOriginal,
+  onApplyCropped,
+  title = "Crop Image",
+  description = "Adjust frame, zoom and position before saving.",
+}) {
   const [zoom, setZoom] = useState(1);
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
@@ -54,8 +61,8 @@ export default function ImageCropModal({ src, onCancel, onApplyOriginal, onApply
       <div className="w-full max-w-3xl rounded-2xl border border-white/10 bg-slate-900 p-4 sm:p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h3 className="text-lg font-bold text-white">Crop Machinery Image</h3>
-            <p className="text-xs text-slate-400">Adjust frame, zoom and position before saving.</p>
+            <h3 className="text-lg font-bold text-white">{title}</h3>
+            <p className="text-xs text-slate-400">{description}</p>
           </div>
           <button type="button" onClick={onCancel} className="rounded-md border border-slate-600 p-1.5 text-slate-300 hover:bg-white/5">
             <X className="h-4 w-4" />

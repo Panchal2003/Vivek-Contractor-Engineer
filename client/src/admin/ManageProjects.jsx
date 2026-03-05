@@ -72,6 +72,7 @@ export default function ManageProjects() {
         <table className="w-full text-left text-sm text-slate-200">
           <thead className="bg-slate-900 text-xs uppercase tracking-[0.12em] text-slate-300">
             <tr>
+              <th className="px-4 py-3">Image</th>
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Category</th>
               <th className="px-4 py-3">Location</th>
@@ -82,6 +83,17 @@ export default function ManageProjects() {
           <tbody>
             {projects.map((project) => (
               <tr key={project._id} className="border-t border-slate-700">
+                <td className="px-4 py-3">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={`h-10 w-14 rounded-md border border-slate-700 ${project.imageFit === "contain" ? "object-contain bg-slate-100" : "object-cover"}`}
+                    />
+                  ) : (
+                    <span className="text-xs text-slate-500">No image</span>
+                  )}
+                </td>
                 <td className="px-4 py-3">{project.title}</td>
                 <td className="px-4 py-3">{project.category}</td>
                 <td className="px-4 py-3">{project.location}</td>
@@ -98,7 +110,7 @@ export default function ManageProjects() {
             ))}
             {projects.length === 0 ? (
               <tr>
-                <td className="px-4 py-3 text-slate-400" colSpan={5}>No projects found.</td>
+                <td className="px-4 py-3 text-slate-400" colSpan={6}>No projects found.</td>
               </tr>
             ) : null}
           </tbody>

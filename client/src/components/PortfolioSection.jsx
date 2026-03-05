@@ -17,32 +17,36 @@ export default function PortfolioSection({ projects = [] }) {
           <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Our Portfolio</h2>
 
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((proj, idx) => (
-              <article
-                key={idx}
-                className="group overflow-hidden rounded-2xl border border-white/15 bg-slate-900/75 text-left backdrop-blur-sm"
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={proj.image}
-                    alt={proj.title}
-                    className="h-64 w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
-                </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-semibold text-white">{proj.title}</h3>
-                  <button
-                    type="button"
-                    onClick={() => setActiveProject(proj)}
-                    className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200"
-                  >
-                    View Case
-                    <ArrowUpRight className="h-4 w-4" />
-                  </button>
-                </div>
-              </article>
-            ))}
+            {projects.map((proj, idx) => {
+              const fitClass = proj.imageFit === "contain" ? "object-contain bg-slate-100" : "object-cover";
+
+              return (
+                <article
+                  key={idx}
+                  className="group overflow-hidden rounded-2xl border border-white/15 bg-slate-900/75 text-left backdrop-blur-sm"
+                >
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={proj.image}
+                      alt={proj.title}
+                      className={`h-64 w-full transition duration-500 group-hover:scale-105 ${fitClass}`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-lg font-semibold text-white">{proj.title}</h3>
+                    <button
+                      type="button"
+                      onClick={() => setActiveProject(proj)}
+                      className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200"
+                    >
+                      View Case
+                      <ArrowUpRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -60,7 +64,11 @@ export default function PortfolioSection({ projects = [] }) {
               </button>
             </div>
 
-            <img src={activeProject.image} alt={activeProject.title} className="mt-4 h-52 w-full rounded-xl object-cover sm:h-64" />
+            <img
+              src={activeProject.image}
+              alt={activeProject.title}
+              className={`mt-4 h-52 w-full rounded-xl sm:h-64 ${activeProject.imageFit === "contain" ? "object-contain bg-slate-100" : "object-cover"}`}
+            />
 
             <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-slate-300">
               {activeProject.location ? (

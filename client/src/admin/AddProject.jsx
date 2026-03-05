@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ImageCropModal from "./ImageCropModal";
 
 const defaultState = {
   title: "",
@@ -6,6 +7,7 @@ const defaultState = {
   location: "",
   category: "General",
   image: "",
+  imageFit: "cover",
   completed: false,
   order: 0,
 };
@@ -13,6 +15,7 @@ const defaultState = {
 export default function AddProject({ initialData = defaultState, onSubmit, onCancel, submitLabel = "Save Project" }) {
   const [image, setImage] = useState(initialData.image || "");
   const [isReadingFile, setIsReadingFile] = useState(false);
+  const [cropSource, setCropSource] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files?.[0];
@@ -20,7 +23,7 @@ export default function AddProject({ initialData = defaultState, onSubmit, onCan
     setIsReadingFile(true);
     const reader = new FileReader();
     reader.onload = () => {
-      setImage(reader.result?.toString() || "");
+      setCropSource(reader.result?.toString() || "");
       setIsReadingFile(false);
     };
     reader.onerror = () => {
@@ -39,6 +42,7 @@ export default function AddProject({ initialData = defaultState, onSubmit, onCan
       location: formData.get("location")?.toString() || "",
       category: formData.get("category")?.toString() || "General",
       image,
+      imageFit: formData.get("imageFit")?.toString() || "cover",
       completed: formData.get("completed") === "on",
       order: Number(formData.get("order") || 0),
     });
@@ -73,11 +77,18 @@ export default function AddProject({ initialData = defaultState, onSubmit, onCan
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-3">
         <div>
           <label htmlFor="project-image-file" className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">Project Image</label>
           <input id="project-image-file" type="file" accept="image/*" onChange={handleFileChange} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-300 file:mr-3 file:rounded-md file:border-0 file:bg-cyan-300 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-slate-950" />
           {isReadingFile ? <p className="mt-1 text-xs text-cyan-200">Reading image...</p> : null}
+        </div>
+        <div>
+          <label htmlFor="project-image-fit" className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">Image Display</label>
+          <select id="project-image-fit" name="imageFit" defaultValue={initialData.imageFit || "cover"} className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white">
+            <option value="cover">Crop to card (recommended)</option>
+            <option value="contain">Show complete image</option>
+          </select>
         </div>
         <div>
           <label htmlFor="project-order" className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">Display Order</label>
@@ -96,6 +107,23 @@ export default function AddProject({ initialData = defaultState, onSubmit, onCan
         <button type="submit" className="rounded-lg bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200" disabled={isReadingFile}>{submitLabel}</button>
         <button type="button" onClick={onCancel} className="rounded-lg border border-slate-600 px-4 py-2 text-sm text-slate-200 transition hover:bg-white/5">Cancel</button>
       </div>
+
+      {cropSource ? (
+        <ImageCropModal
+          src={cropSource}
+          title="Crop Project Image"
+          description="Adjust framing, zoom and position before saving your project card image."
+          onCancel={() => setCropSource("")}
+          onApplyOriginal={() => {
+            setImage(cropSource);
+            setCropSource("");
+          }}
+          onApplyCropped={(croppedData) => {
+            setImage(croppedData);
+            setCropSource("");
+          }}
+        />
+      ) : null}
     </form>
   );
 }

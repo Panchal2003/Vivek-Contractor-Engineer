@@ -42,7 +42,7 @@ export default function ProjectPage() {
   });
 
   return (
-    <div className="font-sans">
+    <div className="font-sans bg-slate-950 text-white">
       <HeroSection
         title="Our Completed Projects"
         highlightText="Projects"
@@ -52,22 +52,35 @@ export default function ProjectPage() {
         videoSrc="/videos/projects.mp4"
       />
 
-      <div className="flex flex-wrap justify-center gap-3 py-6">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            className={`rounded-full px-4 py-2 text-sm font-semibold ${filter === cat ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
-            onClick={() => setFilter(cat)}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <section className="relative border-y border-white/10 bg-slate-900/60 py-5">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <div>
+            <p className="text-xs uppercase tracking-[0.14em] text-cyan-200">Filter Portfolio</p>
+            <h2 className="text-lg font-bold text-white sm:text-xl">Browse by category or completion status</h2>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                  filter === cat
+                    ? "border-cyan-300 bg-cyan-300 text-slate-950"
+                    : "border-white/20 bg-white/5 text-slate-200 hover:border-cyan-200/40 hover:text-white"
+                }`}
+                onClick={() => setFilter(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <PortfolioSection
         projects={filteredProjects.map((project) => ({
           title: project.title,
           image: project.image || "/images/project1.jpg",
+          imageFit: project.imageFit || "cover",
           description: project.description || "",
           category: project.category || "",
           location: project.location || "",
@@ -76,7 +89,7 @@ export default function ProjectPage() {
       />
 
       {filteredProjects.length === 0 ? (
-        <div className="mx-auto mb-8 max-w-4xl rounded-xl border border-slate-300/30 bg-slate-100 px-4 py-3 text-center text-sm text-slate-700">
+        <div className="mx-auto mb-12 mt-2 max-w-4xl rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-center text-sm text-slate-200">
           {isError ? "Unable to load live projects." : "No projects available for this filter."}
         </div>
       ) : null}

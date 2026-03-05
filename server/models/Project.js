@@ -7,6 +7,11 @@ const projectSchema = new mongoose.Schema(
     location: { type: String, default: "", trim: true },
     category: { type: String, default: "General", trim: true },
     image: { type: String, default: "" },
+    imageFit: {
+      type: String,
+      enum: ["cover", "contain"],
+      default: "cover",
+    },
     completed: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
   },

@@ -37,7 +37,7 @@ export default function MachineryPage() {
   const filteredMachines = filter === "All" ? machines : machines.filter((machine) => machine.category === filter);
 
   return (
-    <div className="font-sans">
+    <div className="font-sans bg-slate-950 text-white">
       <HeroSection
         title="Our Machinery & Equipment"
         highlightText="Machinery"
@@ -47,26 +47,38 @@ export default function MachineryPage() {
         videoSrc="/videos/machinery.mp4"
       />
 
-      <div className="flex flex-wrap justify-center gap-3 py-6">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            className={`rounded-full px-4 py-2 text-sm font-semibold ${filter === cat ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"}`}
-            onClick={() => setFilter(cat)}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <section className="relative border-y border-white/10 bg-slate-900/60 py-5">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <div>
+            <p className="text-xs uppercase tracking-[0.14em] text-cyan-200">Filter Inventory</p>
+            <h2 className="text-lg font-bold text-white sm:text-xl">Find machinery by category</h2>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                  filter === cat
+                    ? "border-cyan-300 bg-cyan-300 text-slate-950"
+                    : "border-white/20 bg-white/5 text-slate-200 hover:border-cyan-200/40 hover:text-white"
+                }`}
+                onClick={() => setFilter(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 md:grid-cols-3">
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 lg:grid-cols-3 lg:px-8">
         {filteredMachines.map((machine) => (
           <MachineCard key={machine._id || machine.name} {...machine} />
         ))}
       </section>
 
       {filteredMachines.length === 0 ? (
-        <div className="mx-auto mb-8 max-w-4xl rounded-xl border border-slate-300/30 bg-slate-100 px-4 py-3 text-center text-sm text-slate-700">
+        <div className="mx-auto mb-12 max-w-4xl rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-center text-sm text-slate-200">
           {isError ? "Unable to load live machinery list." : "No machinery available for this filter."}
         </div>
       ) : null}
