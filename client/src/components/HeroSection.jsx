@@ -1,157 +1,159 @@
-import {
-  ArrowRight,
-  Award,
-  BadgeCheck,
-  Building2,
-  CircleGauge,
-  Drill,
-  HardHat,
-  Pickaxe,
-  ShieldCheck,
-  Wrench,
-} from "lucide-react";
+import { ArrowRight, Award, ShieldCheck, Users } from "lucide-react";
 
 export default function HeroSection({
   title,
-  highlightText = "",
-  subtitle = "",
-  buttonText = "",
-  buttonLink = "#",
+  subtitle,
+  buttonText,
+  buttonLink,
   videoSrc = "",
+  showStats = true,
 }) {
-  const floatingTools = [
-    { icon: Wrench, label: "Maintenance", className: "top-[16%] left-[8%] animate-float-slow" },
-    { icon: Drill, label: "Drilling", className: "top-[24%] right-[9%] animate-float-delay" },
-    { icon: HardHat, label: "Safety", className: "top-[65%] left-[20%] animate-float" },
-    { icon: Pickaxe, label: "Infrastructure", className: "top-[65%] right-[8%] animate-float-slow" },
-    { icon: CircleGauge, label: "Quality", className: "top-[10%] left-[46%] animate-float-delay" },
-  ];
-
-  const highlights = [
-    { icon: Award, text: "25+ Years Industry Track Record" },
-    { icon: ShieldCheck, text: "ISO-Aligned Safety Practices" },
-    { icon: Building2, text: "Government & Private Contracts" },
-  ];
+  const scrollToContent = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      {videoSrc && (
+    <section className="relative w-full min-h-[90vh] sm:min-h-[100vh] flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
+      {videoSrc ? (
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800" />
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/70 to-slate-950/95"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(14,116,144,0.35),transparent_48%),radial-gradient(circle_at_82%_20%,rgba(180,83,9,0.35),transparent_52%)]"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 sm:-top-60 -right-40 sm:-right-60 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-amber-500/20 rounded-full blur-[80px] sm:blur-[100px] animate-float"></div>
+        <div classclassName="absolute -bottom-40 sm:-bottom-60 -left-40 sm:-left-60 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-orange-500/15 rounded-full blur-[80px] sm:blur-[100px] animate-float" style={{ animationDelay: '1.5s' }}></div>
+        
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%200h40v40H0V0zm1%201h38v1H1V1zm0%206h38v1H1V7zm0%206h38v1H1v-1zm0%206h38v1H1v-1zm0%206h38v1H1v-1zm0%206h38v1H1v-1zm0%206h38v1H1v-1z%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.04%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] opacity-60"></div>
 
-      <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff22_1px,transparent_1px),linear-gradient(to_bottom,#ffffff22_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0)',
+          backgroundSize: '32px 32px'
+        }}></div>
+      </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-center px-4 pb-14 pt-28 sm:px-6 md:pt-32 lg:px-8">
-        <div className="grid w-full gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="text-white">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-slate-900/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200 backdrop-blur">
-              <BadgeCheck className="h-4 w-4" />
-              Trusted Engineering Partner
-            </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/50 to-slate-900/20" />
 
-            <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
-              {typeof title === "string" && highlightText && title.includes(highlightText) ? (
-                <>
-                  {title.split(highlightText)[0]}
-                  <span className="text-orange-400">{highlightText}</span>
-                  {title.split(highlightText)[1]}
-                </>
-              ) : (
-                title
-              )}
-            </h1>
-
-            {subtitle && (
-              <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
-                {subtitle}
-              </p>
-            )}
-
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              {buttonText && buttonLink && (
-                <a
-                  href={buttonLink}
-                  className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-orange-400"
-                >
-                  {buttonText}
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              )}
-              {/* <a
-                href="#contact"
-                className="inline-flex items-center rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
-              >
-                Request Consultation
-              </a> */}
-            </div>
-
-            <div className="mt-9 grid gap-3 sm:grid-cols-3">
-              {highlights.map((item) => (
-                <div
-                  key={item.text}
-                  className="rounded-2xl border border-white/15 bg-slate-900/60 p-4 backdrop-blur-sm"
-                >
-                  <item.icon className="mb-2 h-5 w-5 text-cyan-300" />
-                  <p className="text-xs leading-relaxed text-slate-200">{item.text}</p>
-                </div>
-              ))}
+      <div className="relative z-10 w-full max-w-7xl px-3 sm:px-4 lg:px-8 py-6 sm:py-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-4 sm:mb-6 inline-flex animate-fadeInUp stagger-1">
+            <div className="flex items-center gap-2 sm:gap-3 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md px-3 sm:px-5 py-1.5 sm:py-2">
+              <Award className="h-3.5 sm:h-5 w-3.5 sm:w-5 text-amber-400" />
+              <span className="text-xs sm:text-sm font-bold text-amber-100 uppercase tracking-wider">Established 2000</span>
+              <span className="hidden sm:block mx-2 h-1 w-1 rounded-full bg-amber-500/50"></span>
+              <span className="hidden sm:block text-xs sm:text-sm font-bold text-blue-200 uppercase tracking-wider">ISO 9001:2015</span>
             </div>
           </div>
 
-          <div className="relative">
-            <div className="rounded-3xl border border-white/20 bg-slate-900/70 p-5 shadow-2xl backdrop-blur-md sm:p-6">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">
-                Delivery Performance
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-4">
-                  <p className="text-2xl font-bold text-white">120+</p>
-                  <p className="mt-1 text-xs text-slate-300">Executed Projects</p>
-                </div>
-                <div className="rounded-2xl border border-orange-300/20 bg-orange-400/10 p-4">
-                  <p className="text-2xl font-bold text-white">400+</p>
-                  <p className="mt-1 text-xs text-slate-300">Skilled Workforce</p>
-                </div>
-                <div className="rounded-2xl border border-white/20 bg-slate-800/70 p-4">
-                  <p className="text-2xl font-bold text-white">98%</p>
-                  <p className="mt-1 text-xs text-slate-300">On-time Completion</p>
-                </div>
-                <div className="rounded-2xl border border-white/20 bg-slate-800/70 p-4">
-                  <p className="text-2xl font-bold text-white">24x7</p>
-                  <p className="mt-1 text-xs text-slate-300">Site Coordination</p>
-                </div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight text-white animate-fadeInUp stagger-2">
+            <span className="block">Engineering</span>
+            <span className="block mt-1">
+              Excellence{' '}
+              <span className="relative">
+                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 animate-gradient">Since 2000</span>
+                <svg className="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-3 sm:h-4 text-amber-500/30" viewBox="0 0 200 20" preserveAspectRatio="none">
+                  <path d="M2,14 Q50,18 100,14 T198,14" stroke="currentColor" strokeWidth="6" fill="none" />
+                </svg>
+              </span>
+            </span>
+          </h1>
+
+          <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm lg:text-base leading-relaxed text-slate-300 animate-fadeInUp stagger-3">
+            {subtitle || "Leading infrastructure contractor specializing in sewer systems, fire line installations, and water utility infrastructure across India."}
+          </p>
+
+          <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2 sm:gap-4 animate-fadeInUp stagger-4">
+            <a
+              href={buttonLink || "/contact"}
+              className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-5 sm:px-7 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-amber-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-amber-500/40 overflow-hidden"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="relative flex items-center gap-2">
+                {buttonText || "Get a Quote"}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </a>
+            <a
+              href="/projects"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-5 sm:px-7 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:scale-105"
+            >
+              View Our Work
+            </a>
+          </div>
+
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6 animate-fadeInUp stagger-5">
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 sm:h-10 w-8 sm:w-10 items-center justify-center rounded-full bg-amber-500/20 border border-amber-500/30">
+                <Award className="h-4 sm:h-5 w-4 sm:w-5 text-amber-400" />
+              </div>
+              <div className="text-left">
+                <p className="text-sm sm:text-lg font-bold text-white">25+</p>
+                <p className="text-[10px] sm:text-xs text-slate-400">Years</p>
               </div>
             </div>
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 sm:h-10 w-8 sm:w-10 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30">
+                <ShieldCheck className="h-4 sm:h-5 w-4 sm:w-5 text-emerald-400" />
+              </div>
+              <div className="text-left">
+                <p className="text-sm sm:text-lg font-bold text-white">120+</p>
+                <p className="text-[10px] sm:text-xs text-slate-400">Projects</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 sm:h-10 w-8 sm:w-10 items-center justify-center rounded-full bg-blue-500/20 border border-blue-500/30">
+                <Users className="h-4 sm:h-5 w-4 sm:w-5 text-blue-400" />
+              </div>
+              <div className="text-left">
+                <p className="text-sm sm:text-lg font-bold text-white">400+</p>
+                <p className="text-[10px] sm:text-xs text-slate-400">Workforce</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            {floatingTools.map((tool) => (
+        {showStats && (
+          <div className="mt-8 sm:mt-10 grid grid-cols-4 gap-2 sm:gap-3 animate-fadeInUp stagger-5">
+            {[
+              { value: "120+", label: "Projects" },
+              { value: "25+", label: "Years" },
+              { value: "98%", label: "On-Time" },
+              { value: "10+", label: "Govt" },
+            ].map((stat, idx) => (
               <div
-                key={tool.label}
-                className={`pointer-events-none absolute hidden rounded-full border border-white/20 bg-slate-900/80 px-3 py-2 text-[11px] font-semibold text-cyan-100 backdrop-blur md:flex md:items-center md:gap-2 ${tool.className}`}
+                key={stat.label}
+                className="rounded-lg sm:rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-2 sm:p-3 text-center hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300"
               >
-                <tool.icon className="h-4 w-4 text-orange-300" />
-                {tool.label}
+                <p className="text-xs sm:text-lg font-bold text-white">{stat.value}</p>
+                <p className="text-[10px] sm:text-xs text-slate-400">{stat.label}</p>
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block">
-          <div className="flex h-10 w-6 justify-center rounded-full border-2 border-white/70">
-            <div className="mt-2 h-3 w-1 rounded-full bg-white animate-bounce"></div>
-          </div>
-        </div>
+        )}
       </div>
+
+      <button
+        onClick={scrollToContent}
+        className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 cursor-pointer text-white/50 transition-all duration-300 hover:text-amber-400"
+      >
+        <span className="text-[10px] font-medium uppercase tracking-widest">Explore</span>
+        <div className="h-6 sm:h-8 w-4 sm:w-5 rounded-full border border-white/30 bg-white/5">
+          <div className="absolute left-1/2 top-1 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-amber-400 to-orange-500 animate-bounce" />
+        </div>
+      </button>
     </section>
   );
 }

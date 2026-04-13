@@ -62,17 +62,17 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
   return (
     <form
       onSubmit={handleSubmit}
-      className={`rounded-3xl border border-white/15 bg-slate-900/80 p-6 backdrop-blur-md sm:p-8 ${className}`}
+      className={`rounded-2xl border border-slate-200/50 bg-white p-5 shadow-lg sm:p-6 ${className}`}
     >
-      <h3 className="text-2xl font-extrabold text-white">Send Project Inquiry</h3>
-      <p className="mt-2 text-sm text-slate-300">
+      <h3 className="text-lg font-bold text-slate-900">Send Project Inquiry</h3>
+      <p className="mt-1 text-sm text-slate-500">
         Fill in the details and our engineering team will contact you with the next steps.
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-            Full Name
+          <label htmlFor="name" className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-700">
+            Full Name *
           </label>
           <input
             id="name"
@@ -81,13 +81,13 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
+            className="w-full rounded-lg border border-slate-200/50 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
           />
         </div>
 
         <div>
-          <label htmlFor="phone" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-            Phone Number
+          <label htmlFor="phone" className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-700">
+            Phone Number *
           </label>
           <input
             id="phone"
@@ -96,13 +96,13 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
             value={formData.phone}
             onChange={handleChange}
             required
-            className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
+            className="w-full rounded-lg border border-slate-200/50 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-            Work Email
+          <label htmlFor="email" className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-700">
+            Work Email *
           </label>
           <input
             id="email"
@@ -111,13 +111,13 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
+            className="w-full rounded-lg border border-slate-200/50 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
           />
         </div>
 
         <div>
-          <label htmlFor="serviceType" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-            Service Type
+          <label htmlFor="serviceType" className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-700">
+            Service Type *
           </label>
           <select
             id="serviceType"
@@ -125,7 +125,7 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
             value={formData.serviceType}
             onChange={handleChange}
             required
-            className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
+            className="w-full rounded-lg border border-slate-200/50 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
           >
             <option value="">Select service</option>
             {options.map((option) => (
@@ -137,8 +137,8 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
         </div>
 
         <div>
-          <label htmlFor="location" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-            Project Location
+          <label htmlFor="location" className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-700">
+            Project Location *
           </label>
           <input
             id="location"
@@ -147,12 +147,12 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
             value={formData.location}
             onChange={handleChange}
             required
-            className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
+            className="w-full rounded-lg border border-slate-200/50 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
           />
         </div>
 
         <div>
-          <label htmlFor="budget" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
+          <label htmlFor="budget" className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-700">
             Estimated Budget
           </label>
           <input
@@ -162,14 +162,14 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
             value={formData.budget}
             onChange={handleChange}
             placeholder="e.g. 25L - 40L"
-            className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
+            className="w-full rounded-lg border border-slate-200/50 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
           />
         </div>
       </div>
 
       <div className="mt-4">
-        <label htmlFor="message" className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-cyan-100">
-          Project Brief
+        <label htmlFor="message" className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-700">
+          Project Brief *
         </label>
         <textarea
           id="message"
@@ -177,28 +177,28 @@ export default function ContactForm({ onSubmit, className = "", serviceOptions =
           value={formData.message}
           onChange={handleChange}
           required
-          rows="5"
-          className="w-full rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2.5 text-sm text-slate-100 outline-none ring-cyan-300/40 transition focus:ring"
+          rows="3"
+          className="w-full rounded-lg border border-slate-200/50 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"
           placeholder="Share project scope, timeline, and special requirements."
         />
       </div>
 
       {status === "success" && (
-        <p className="mt-4 rounded-xl border border-emerald-300/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
-          Inquiry submitted successfully. Our team will contact you shortly.
-        </p>
+        <div className="mt-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3">
+          <p className="text-sm font-medium text-green-700">Inquiry submitted successfully. Our team will contact you shortly.</p>
+        </div>
       )}
 
       {status === "error" && (
-        <p className="mt-4 rounded-xl border border-rose-300/30 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">
-          {errorMsg}
-        </p>
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
+          <p className="text-sm font-medium text-red-700">{errorMsg}</p>
+        </div>
       )}
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-70"
+        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-2.5 text-sm font-bold text-white transition hover:scale-105 hover:shadow-lg hover:shadow-amber-500/25 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isSubmitting ? (
           <>

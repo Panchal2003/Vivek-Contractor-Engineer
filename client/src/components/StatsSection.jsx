@@ -6,7 +6,6 @@ export default function StatsSection({
   duration = 2000,
   incrementTime = 20,
   sectionClasses = "",
-  floatElements = [],
 }) {
   const sectionRef = useRef(null);
   const [countStarted, setCountStarted] = useState(false);
@@ -53,36 +52,33 @@ export default function StatsSection({
   }, [countStarted, statsData, duration, incrementTime]);
 
   return (
-    <section ref={sectionRef} className={`relative overflow-hidden bg-slate-950/70 py-20 sm:py-24 ${sectionClasses}`}>
-      {floatElements.map((el, i) => (
-        <div
-          key={i}
-          className={`absolute ${el.position} ${el.size} ${el.bgColor} rounded-full blur-3xl ${el.animation}`}
-        ></div>
-      ))}
-
-      <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff1c_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1c_1px,transparent_1px)] bg-[size:48px_48px]"></div>
-
+    <section ref={sectionRef} className={`relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12 sm:py-16 ${sectionClasses}`}>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      </div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%,rgba(245,158,11,0.1),transparent_50%)]"></div>
+      
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Performance Snapshot</h2>
-          <BarChart3 className="h-6 w-6 text-cyan-200" />
+          <h2 className="text-xl font-bold text-white sm:text-2xl">Performance Snapshot</h2>
+          <BarChart3 className="h-6 w-6 text-amber-400" />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {statsData.map((stat, index) => (
             <article
               key={index}
-              className="rounded-2xl border border-white/15 bg-slate-900/75 p-6 text-center backdrop-blur-sm transition hover:-translate-y-1 hover:border-cyan-300/40"
+              className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 text-center transition hover:bg-white/10 hover:border-amber-500/30"
             >
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/10">
-                {stat.icon && <i className={`${stat.icon} text-xl ${stat.iconColor || "text-cyan-200"}`}></i>}
+              <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-amber-500 to-orange-500">
+                {stat.icon && <i className={`${stat.icon} text-lg text-white`}></i>}
               </div>
-              <p className="text-3xl font-extrabold text-white">
+              <p className="text-3xl font-bold text-white">
                 {counters[index]}
                 {stat.appendPlus ? "+" : ""}
               </p>
-              <p className="mt-1 text-sm text-slate-300">{stat.label}</p>
+              <p className="mt-1 text-sm font-medium text-slate-300">{stat.label}</p>
             </article>
           ))}
         </div>

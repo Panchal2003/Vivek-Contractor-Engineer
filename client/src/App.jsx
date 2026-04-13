@@ -32,7 +32,7 @@ function AppLayout() {
       <div className="flex min-h-screen flex-col">
         {!isAdminRoute ? <Navbar /> : null}
 
-        <main className="flex-grow">
+        <main className="flex-grow pb-0 md:pb-0">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

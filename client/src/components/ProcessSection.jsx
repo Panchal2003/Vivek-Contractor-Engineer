@@ -13,23 +13,25 @@ export default function ProcessSection({ steps = [] }) {
         ];
 
   return (
-    <section className="relative overflow-hidden bg-slate-950/60 py-20 sm:py-24 text-center">
-      <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff1c_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1c_1px,transparent_1px)] bg-[size:48px_48px]"></div>
-
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 py-12 sm:py-16 text-center">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl"></div>
+      </div>
+      
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Our Process</h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-300 sm:text-base">
+        <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Our Process</h2>
+        <p className="mx-auto mt-2 max-w-2xl text-sm text-slate-600">
           A practical workflow that keeps delivery predictable, auditable, and quality controlled.
         </p>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {displaySteps.map((step, idx) => {
             const Icon = icons[idx % icons.length];
             return (
-              <article key={idx} className="rounded-2xl border border-white/15 bg-slate-900/75 p-5 text-left backdrop-blur-sm">
-                <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-orange-300">Step {idx + 1}</p>
-                <Icon className="mb-3 h-8 w-8 text-cyan-200" />
-                <p className="text-sm leading-relaxed text-slate-200">{step}</p>
+              <article key={idx} className="rounded-xl border border-slate-200/50 bg-white p-4 text-left shadow-sm hover:shadow-md transition">
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-orange-600">Step {idx + 1}</p>
+                <Icon className="mb-2 h-6 w-6 text-amber-600" />
+                <p className="text-sm leading-relaxed text-slate-600">{step}</p>
               </article>
             );
           })}

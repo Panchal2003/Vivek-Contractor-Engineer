@@ -3,11 +3,15 @@ import HeroSection from "../components/HeroSection";
 import PortfolioSection from "../components/PortfolioSection";
 import CTASection from "../components/CTASection";
 import { projectsAPI } from "../api/axios";
+import SITE_CONFIG from "../config/siteConfig";
 
 const fallbackProjects = [
-  { title: "Luxury Villa, Uttar Pradesh", image: "/images/project1.jpg", category: "Residential", completed: true },
-  { title: "Office Complex, Delhi", image: "/images/project2.jpg", category: "Commercial", completed: true },
-  { title: "Shopping Mall, Mumbai", image: "/images/project3.jpg", category: "Commercial", completed: false },
+  { title: "Municipal Sewer Network, UP", image: "/images/project1.jpg", category: "Sewer Systems", completed: true, location: "Uttar Pradesh", value: "32 km" },
+  { title: "Industrial Fire Safety, Delhi", image: "/images/project2.jpg", category: "Fire Lines", completed: true, location: "Delhi", value: "14 Facilities" },
+  { title: "Water Treatment Plant, Mumbai", image: "/images/project3.jpg", category: "Water Utilities", completed: false, location: "Mumbai", value: "4 Plants" },
+  { title: "Government Infrastructure Project", image: "/images/project4.jpg", category: "Government", completed: true, location: "Pan India", value: "10+ Contracts" },
+  { title: "Commercial Complex, Gurgaon", image: "/images/project5.jpg", category: "Commercial", completed: true, location: "Gurgaon", value: "1.5L sq.ft" },
+  { title: "Industrial Park, Bangalore", image: "/images/project6.jpg", category: "Industrial", completed: true, location: "Bangalore", value: "500 Acres" },
 ];
 
 export default function ProjectPage() {
@@ -32,46 +36,69 @@ export default function ProjectPage() {
 
   const categories = useMemo(() => {
     const unique = new Set(projects.map((project) => project.category).filter(Boolean));
-    return ["All", "Completed", ...Array.from(unique)];
+    return ["All", "Completed", "In Progress", ...Array.from(unique)];
   }, [projects]);
 
   const filteredProjects = projects.filter((project) => {
     if (filter === "All") return true;
     if (filter === "Completed") return Boolean(project.completed);
+    if (filter === "In Progress") return !project.completed;
     return project.category === filter;
   });
 
+  const projectStats = [
+    { value: "120+", label: "Projects Completed" },
+    { value: "25+", label: "Years Experience" },
+    { value: "98%", label: "On-Time Delivery" },
+    { value: "10+", label: "Government Contracts" },
+  ];
+
   return (
-    <div className="font-sans bg-slate-950 text-white">
+    <div className="font-sans text-slate-900">
       <HeroSection
-        title="Our Completed Projects"
-        highlightText="Projects"
-        subtitle="Explore a selection of our successful construction and engineering projects across India."
+        title="Our Projects"
+        subtitle="Delivering excellence in infrastructure across India"
         buttonText="Contact Us"
         buttonLink="/contact"
-        videoSrc="/videos/projects.mp4"
+        showStats={false}
       />
 
-      <section className="relative border-y border-white/10 bg-slate-900/60 py-5">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <div>
-            <p className="text-xs uppercase tracking-[0.14em] text-cyan-200">Filter Portfolio</p>
-            <h2 className="text-lg font-bold text-white sm:text-xl">Browse by category or completion status</h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                  filter === cat
-                    ? "border-cyan-300 bg-cyan-300 text-slate-950"
-                    : "border-white/20 bg-white/5 text-slate-200 hover:border-cyan-200/40 hover:text-white"
-                }`}
-                onClick={() => setFilter(cat)}
-              >
-                {cat}
-              </button>
+      <section className="relative bg-gradient-to-br from-slate-50 via-white to-slate-100 py-12 sm:py-16">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-orange-500/5 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
+            {projectStats.map((stat, idx) => (
+              <div key={idx} className="rounded-xl border border-slate-200/50 bg-white p-4 text-center shadow-sm">
+                <p className="text-2xl font-bold text-amber-600">{stat.value}</p>
+                <p className="text-xs text-slate-500">{stat.label}</p>
+              </div>
             ))}
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-orange-600">Filter Portfolio</p>
+              <h2 className="text-lg font-bold text-slate-900 sm:text-xl">Browse by category</h2>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  className={`rounded-full border px-3 py-1.5 text-sm font-semibold transition ${
+                    filter === cat
+                      ? "border-amber-500 bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+                      : "border-slate-200 bg-white text-slate-600 hover:border-amber-300 hover:text-amber-600"
+                  }`}
+                  onClick={() => setFilter(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -81,7 +108,7 @@ export default function ProjectPage() {
           title: project.title,
           image: project.image || "/images/project1.jpg",
           imageFit: project.imageFit || "cover",
-          description: project.description || "",
+          description: project.description || `Successfully completed ${project.title} with focus on quality and timely delivery.`,
           category: project.category || "",
           location: project.location || "",
           completed: Boolean(project.completed),
@@ -89,14 +116,14 @@ export default function ProjectPage() {
       />
 
       {filteredProjects.length === 0 ? (
-        <div className="mx-auto mb-12 mt-2 max-w-4xl rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-center text-sm text-slate-200">
+        <div className="mx-auto mb-8 mt-2 max-w-4xl rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm text-slate-600">
           {isError ? "Unable to load live projects." : "No projects available for this filter."}
         </div>
       ) : null}
 
       <CTASection
         title="Want Your Project Featured Here?"
-        subtitle="Contact Vivek Contractor & Engineer to start your next project today."
+        subtitle="Share your project details and let us help you build something extraordinary."
         buttonText="Get a Free Quote"
         to="/contact"
       />
