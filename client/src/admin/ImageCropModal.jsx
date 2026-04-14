@@ -57,7 +57,7 @@ export default function ImageCropModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end justify-center bg-slate-950/80 p-3 backdrop-blur-sm sm:items-center sm:p-5">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/80 p-3 backdrop-blur-sm">
       <div className="w-full max-w-3xl rounded-2xl border border-white/10 bg-slate-900 p-4 sm:p-5">
         <div className="flex items-start justify-between gap-3">
           <div>

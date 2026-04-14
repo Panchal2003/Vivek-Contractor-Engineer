@@ -55,7 +55,7 @@ export default function PortfolioSection({ projects = [] }) {
       </section>
 
       {activeProject ? (
-        <div className="fixed inset-0 z-[70] flex items-end justify-center bg-slate-900/50 p-3 backdrop-blur-sm sm:items-center">
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-900/50 p-3 backdrop-blur-sm">
           <div className="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-5 shadow-xl">
             <div className="flex items-start justify-between gap-3">
               <div>

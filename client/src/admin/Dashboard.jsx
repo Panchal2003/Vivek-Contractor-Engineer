@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Box, ClipboardList, Hammer, LayoutDashboard, LogOut, RefreshCcw, ShieldCheck, Menu, X, Building2, ChevronRight, BarChart3 } from "lucide-react";
+import { Box, ClipboardList, Hammer, LayoutDashboard, LogOut, RefreshCcw, ShieldCheck, Building2, ChevronRight, Bell, PanelLeftClose } from "lucide-react";
 import { clearAdminKey, inquiriesAPI, machineryAPI, projectsAPI, servicesAPI } from "../api/axios";
 
 const navItems = [
@@ -14,7 +14,6 @@ const navItems = [
 export default function Dashboard() {
   const navigate = useNavigate();
   const [stats, setStats] = useState({ services: 0, projects: 0, completedProjects: 0, machinery: 0, inquiries: 0 });
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -52,179 +51,186 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50 overflow-hidden">
-      <aside className={`lg:sticky lg:top-0 lg:h-screen flex flex-col bg-white border-r border-slate-200 shadow-lg transition-all duration-300 overflow-hidden ${sidebarCollapsed ? 'w-20' : 'w-72'}`}>
-        <div className="flex items-center justify-between p-5 border-b border-slate-100 shrink-0">
-          {!sidebarCollapsed && (
-            <div>
-              <p className="text-xs uppercase tracking-[0.16em] text-indigo-600 font-bold">Vivek Contractors</p>
-              <h1 className="text-lg font-bold text-slate-800">Admin Panel</h1>
-            </div>
-          )}
-          <button onClick={() => setSidebarCollapsed(!sidebarCollapsed)} className="hidden lg:flex p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all">
-            <Menu className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="p-4 border-b border-slate-100 shrink-0">
-          {!sidebarCollapsed ? (
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Building2 className="w-5 h-5 text-white" />
+    <div className="flex flex-col h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50 overflow-hidden">
+      {/* Top Header - Fixed Height */}
+      <header className="h-14 sm:h-16 shrink-0 bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm z-40">
+        <div className="flex items-center justify-between h-full px-4 sm:px-5">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-8 sm:w-9 h-8 sm:h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                <Building2 className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
               </div>
-              <div>
-                <p className="text-sm font-semibold text-slate-700">Control Center</p>
-                <p className="text-xs text-slate-400">Manage content</p>
+              <div className="hidden sm:block">
+                <h2 className="text-sm font-bold text-slate-800">Vivek Contractors</h2>
+                <p className="text-[10px] text-slate-500">Admin Dashboard</p>
               </div>
             </div>
-          ) : (
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg mx-auto">
-              <Building2 className="w-5 h-5 text-white" />
-            </div>
-          )}
-        </div>
-
-        <nav className="flex-1 overflow-y-auto p-3 space-y-1">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              onClick={() => setSidebarOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-200 group ${
-                  isActive
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/25"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-800"
-                }`
-              }
+          </div>
+          
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
+              <Bell className="w-5 h-5" />
+              {stats.inquiries > 0 && (
+                <span className="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
+              )}
+            </button>
+            
+            <button
+              onClick={loadStats}
+              disabled={isLoading}
+              className="inline-flex items-center gap-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-800 transition-all duration-200"
             >
-              <item.icon className="w-5 h-5 shrink-0" />
-              {!sidebarCollapsed && <span>{item.label}</span>}
-            </NavLink>
-          ))}
-        </nav>
-
-        {!sidebarCollapsed && (
-          <div className="p-4 border-t border-slate-100 bg-slate-50 shrink-0">
-            <div className="grid grid-cols-2 gap-2">
-              <div className="rounded-lg bg-white p-2 text-center shadow-sm border border-slate-100">
-                <p className="text-lg font-bold text-slate-800">{stats.services}</p>
-                <p className="text-[10px] uppercase text-slate-400">Services</p>
-              </div>
-              <div className="rounded-lg bg-white p-2 text-center shadow-sm border border-slate-100">
-                <p className="text-lg font-bold text-slate-800">{stats.projects}</p>
-                <p className="text-[10px] uppercase text-slate-400">Projects</p>
-              </div>
-              <div className="rounded-lg bg-white p-2 text-center shadow-sm border border-slate-100">
-                <p className="text-lg font-bold text-slate-800">{stats.machinery}</p>
-                <p className="text-[10px] uppercase text-slate-400">Machines</p>
-              </div>
-              <div className="rounded-lg bg-white p-2 text-center shadow-sm border border-slate-100">
-                <p className="text-lg font-bold text-slate-800">{stats.inquiries}</p>
-                <p className="text-[10px] uppercase text-slate-400">Inquiries</p>
-              </div>
-            </div>
+              <RefreshCcw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+              <span className="hidden sm:inline">Refresh</span>
+            </button>
+            
+            <Link to="/" className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-amber-500/20 transition-all duration-200">
+              <ChevronRight className="w-4 h-4 rotate-[-90deg]" />
+              <span className="hidden sm:inline">Website</span>
+            </Link>
           </div>
-        )}
-
-        <div className="p-3 border-t border-slate-100 shrink-0">
-          <button
-            onClick={handleLogout}
-            className={`flex items-center gap-3 rounded-xl w-full px-3 py-2.5 text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-all duration-200 ${sidebarCollapsed ? 'justify-center' : ''}`}
-          >
-            <LogOut className="w-5 h-5" />
-            {!sidebarCollapsed && <span>Logout</span>}
-          </button>
         </div>
-      </aside>
+      </header>
 
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
-        <header className="lg:sticky lg:top-0 z-30 bg-white border-b border-slate-200 shadow-sm shrink-0">
-          <div className="flex items-center justify-between px-4 sm:px-6 py-3">
-            <div className="flex items-center gap-3">
-              <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
-                <Menu className="w-5 h-5" />
-              </button>
+      {/* Main Layout - Sidebar + Content */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Desktop Sidebar - Full Height */}
+        <aside className={`hidden md:flex flex-col bg-white border-r border-slate-200/50 shadow-xl transition-all duration-300 overflow-hidden ${sidebarCollapsed ? 'w-20' : 'w-64 lg:w-72'}`}>
+          {/* Logo Section */}
+          <div className="flex items-center justify-between p-4 border-b border-slate-100/50 shrink-0">
+            {!sidebarCollapsed && (
               <div>
-                <h2 className="text-lg font-bold text-slate-800">Dashboard</h2>
-                <p className="text-xs text-slate-500 hidden sm:block">Manage all site content and submissions</p>
+                <p className="text-[9px] uppercase tracking-[0.2em] text-indigo-600 font-bold">Vivek Contractors</p>
+                <h1 className="text-lg font-bold text-slate-800">Admin Panel</h1>
+              </div>
+            )}
+            <button onClick={() => setSidebarCollapsed(!sidebarCollapsed)} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-all">
+              {sidebarCollapsed ? (
+                <PanelLeftClose className="w-5 h-5" />
+              ) : (
+                <PanelLeftClose className="w-5 h-5 rotate-180" />
+              )}
+            </button>
+          </div>
+
+          {/* User Info */}
+          {!sidebarCollapsed && (
+            <div className="p-4 border-b border-slate-100/50 shrink-0">
+              <div className="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/50">
+                <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                  <Building2 className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-800">Control Center</p>
+                  <p className="text-[10px] text-slate-500">Manage content</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={loadStats}
-                disabled={isLoading}
-                className="inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-800 transition-all duration-200 shadow-sm disabled:opacity-70"
+          )}
+
+          {/* Navigation */}
+          <nav className="flex-1 overflow-y-auto p-3 space-y-1.5">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 group ${
+                    isActive
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-600/25"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-800"
+                  }`
+                }
               >
-                <RefreshCcw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-                <span className="hidden sm:inline">Refresh</span>
-              </button>
-              <Link to="/" className="inline-flex items-center gap-2 rounded-lg bg-white border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-800 transition-all duration-200 shadow-sm">
-                <ChevronRight className="w-4 h-4 rotate-[-90deg]" />
-                <span className="hidden sm:inline">Website</span>
-              </Link>
+                <item.icon className="w-5 h-5 shrink-0" />
+                {!sidebarCollapsed && <span>{item.label}</span>}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* Stats Grid */}
+          {!sidebarCollapsed && (
+            <div className="p-4 border-t border-slate-100/50 bg-gradient-to-br from-slate-50 to-blue-50/30 shrink-0">
+              <p className="text-[10px] uppercase tracking-[0.15em] text-slate-400 font-semibold mb-3">Quick Stats</p>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="rounded-xl bg-white p-2.5 text-center shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                  <p className="text-lg font-bold text-blue-600">{stats.services}</p>
+                  <p className="text-[9px] uppercase text-slate-400">Services</p>
+                </div>
+                <div className="rounded-xl bg-white p-2.5 text-center shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                  <p className="text-lg font-bold text-indigo-600">{stats.projects}</p>
+                  <p className="text-[9px] uppercase text-slate-400">Projects</p>
+                </div>
+                <div className="rounded-xl bg-white p-2.5 text-center shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                  <p className="text-lg font-bold text-amber-600">{stats.machinery}</p>
+                  <p className="text-[9px] uppercase text-slate-400">Machines</p>
+                </div>
+                <div className="rounded-xl bg-white p-2.5 text-center shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                  <p className="text-lg font-bold text-rose-600">{stats.inquiries}</p>
+                  <p className="text-[9px] uppercase text-slate-400">Inquiries</p>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
-          <div className="lg:hidden px-3 pb-3 overflow-x-auto">
-            <nav className="flex min-w-max gap-1">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.end}
-                  className={({ isActive }) =>
-                    `rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                      isActive ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md" : "bg-slate-100 text-slate-600"
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
+          {/* Logout */}
+          <div className="p-3 border-t border-slate-100/50 shrink-0">
+            <button
+              onClick={handleLogout}
+              className={`flex items-center gap-3 rounded-xl w-full px-4 py-3 text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-all duration-200 ${sidebarCollapsed ? 'justify-center' : ''}`}
+            >
+              <LogOut className="w-5 h-5" />
+              {!sidebarCollapsed && <span>Logout</span>}
+            </button>
           </div>
-        </header>
+        </aside>
 
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6">
+        {/* Main Content */}
+        <main className="flex-1 overflow-y-auto p-3 sm:p-5">
           <div className="max-w-6xl mx-auto">
             <Outlet context={{ refreshStats: loadStats, stats }} />
           </div>
         </main>
       </div>
 
-      {sidebarOpen && (
-        <>
-          <div className="fixed inset-0 bg-black/30 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
-          <div className="fixed inset-y-0 left-0 w-72 z-50 bg-white shadow-2xl p-5 lg:hidden animate-slide-in">
-            <div className="flex items-center justify-between mb-6">
-              <span className="font-bold text-slate-700">Menu</span>
-              <button onClick={() => setSidebarOpen(false)} className="p-2 text-slate-500">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <nav className="space-y-1">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.end}
-                  onClick={() => setSidebarOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold ${
-                      isActive ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white" : "text-slate-600 hover:bg-slate-100"
-                    }`
-                  }
-                >
-                  <item.icon className="w-5 h-5" />
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
-          </div>
-        </>
-      )}
+      {/* Mobile Bottom Navigation Bar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-md border-t border-slate-200/50 shadow-xl shadow-slate-200/20 z-30 px-1">
+        <div className="flex items-center justify-around h-full">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                `flex flex-col items-center justify-center gap-0.5 px-2 py-1.5 rounded-xl transition-all ${
+                  isActive
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-slate-400 hover:text-slate-600"
+                }`
+              }
+            >
+              <div className="relative">
+                <item.icon className="w-5 h-5" />
+                {item.to === '/admin/inquiries' && stats.inquiries > 0 && (
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white"></span>
+                )}
+              </div>
+              <span className="text-[9px] font-semibold">{item.label}</span>
+            </NavLink>
+          ))}
+          <button
+            onClick={handleLogout}
+            className="flex flex-col items-center justify-center gap-0.5 px-2 py-1.5 rounded-xl text-rose-500 hover:bg-rose-50"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="text-[9px] font-semibold">Logout</span>
+          </button>
+        </div>
+      </nav>
+
+      {/* Padding for bottom nav */}
+      <div className="md:hidden h-16" />
     </div>
   );
 }
