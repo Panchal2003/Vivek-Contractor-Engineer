@@ -100,11 +100,13 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden text-slate-900">
-      <HeroSection
-        title="Engineering Excellence"
-        subtitle="Leading infrastructure contractor specializing in sewer systems, fire line installations, and water utility infrastructure across India."
-        buttonText="Get a Quote"
-        buttonLink="/contact"
+<HeroSection
+        title='Engineering Excellence'
+        subtitle='Leading infrastructure contractor specializing in sewer systems, fire line installations, and water utility infrastructure across India since 2000.'
+        buttonText='Get a Quote'
+        buttonLink='/contact'
+        secondaryText='View Projects'
+        secondaryLink='/projects'
         showStats={true}
       />
 

@@ -66,7 +66,7 @@ export default function AboutSection({
           )}
 
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/60 to-slate-900/80"></div>
-          <div className="relative z-10 flex min-h-[350px] flex-col justify-end p-5 sm:p-6">
+          <div className="relative z-10 flex min-h-[280px] sm:min-h-[350px] flex-col justify-end p-4 sm:p-6">
             <h3 className="text-xl font-bold text-white sm:text-2xl">Execution Confidence</h3>
             <p className="mt-1.5 max-w-md text-sm text-slate-200">
               Structured planning, measurable quality checks, and field-tested manpower for high-impact infrastructure delivery.

@@ -52,13 +52,13 @@ export default function ContactPage() {
     },
   ];
 
-  return (
-    <div className="min-h-screen text-slate-900">
+return (
+    <div className='min-h-screen text-slate-900'>
       <HeroSection
-        title="Contact Us"
-        subtitle="Get in touch for your infrastructure project needs"
-        buttonText="Contact Us"
-        buttonLink="/contact"
+        title='Contact Us'
+        subtitle='Reach out for sewer systems, fire line installations, water utilities, or heavy infrastructure projects. We serve government and private clients across India.'
+        buttonText='Get a Quote'
+        buttonLink='/contact'
         showStats={false}
       />
 

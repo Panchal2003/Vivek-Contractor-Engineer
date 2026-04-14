@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, Info, Settings, FolderOpen, Hammer, Mail, MessageCircle, X, Menu } from "lucide-react";
 import logo from "../assets/logo.png";
 import SITE_CONFIG from "../config/siteConfig";
@@ -8,6 +8,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const timerRef = useRef(null);
   const isHomePage = location.pathname === "/";
 
   useEffect(() => {
@@ -40,17 +42,37 @@ export default function Navbar() {
       }`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 lg:h-18 items-center justify-between">
-            <Link to="/" className="flex items-center gap-3 group">
+            <Link 
+              to="/" 
+              className="flex items-center gap-3 group lg:cursor-pointer select-none"
+              onTouchStart={() => {
+                timerRef.current = setTimeout(() => {
+                  navigate("/admin/login");
+                }, 3000);
+              }}
+              onTouchEnd={() => clearTimeout(timerRef.current)}
+              onMouseDown={() => {
+                timerRef.current = setTimeout(() => {
+                  navigate("/admin/login");
+                }, 3000);
+              }}
+              onMouseUp={() => clearTimeout(timerRef.current)}
+              onMouseLeave={() => clearTimeout(timerRef.current)}
+              onContextMenu={(e) => {
+                e.preventDefault();
+                navigate("/admin/login");
+              }}
+            >
               <div className="relative">
                 <img 
                   src={logo} 
                   alt="VCE Logo" 
-                  className="h-10 w-10 lg:h-12 lg:w-12 rounded-full border-2 border-amber-500 object-cover shadow-md group-hover:scale-110 transition-transform duration-500" 
+                  className="h-10 w-10 lg:h-12 lg:w-12 rounded-full border-2 border-amber-500 object-cover shadow-md group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 border-2 border-white animate-pulse"></div>
               </div>
-              <div className="hidden sm:block">
-                <p className="text-sm lg:text-base font-bold uppercase tracking-wider bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">{SITE_CONFIG.company.shortName}</p>
+              <div className="block">
+                <p className="text-sm lg:text-base font-bold uppercase tracking-wider text-slate-800">{SITE_CONFIG.company.shortName}</p>
                 <p className="text-[10px] lg:text-xs font-medium text-slate-500 uppercase tracking-wider">Contractors & Engineers</p>
               </div>
             </Link>

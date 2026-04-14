@@ -24,14 +24,14 @@ export default function ProcessSection({ steps = [] }) {
           A practical workflow that keeps delivery predictable, auditable, and quality controlled.
         </p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 sm:mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {displaySteps.map((step, idx) => {
             const Icon = icons[idx % icons.length];
             return (
-              <article key={idx} className="rounded-xl border border-slate-200/50 bg-white p-4 text-left shadow-sm hover:shadow-md transition">
-                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-orange-600">Step {idx + 1}</p>
-                <Icon className="mb-2 h-6 w-6 text-amber-600" />
-                <p className="text-sm leading-relaxed text-slate-600">{step}</p>
+              <article key={idx} className="rounded-xl border border-slate-200/50 bg-white p-3 sm:p-4 text-left shadow-sm hover:shadow-md transition">
+                <p className="mb-1.5 sm:mb-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-orange-600">Step {idx + 1}</p>
+                <Icon className="mb-1.5 sm:mb-2 h-5 sm:h-6 w-5 sm:w-6 text-amber-600" />
+                <p className="text-xs sm:text-sm leading-relaxed text-slate-600">{step}</p>
               </article>
             );
           })}

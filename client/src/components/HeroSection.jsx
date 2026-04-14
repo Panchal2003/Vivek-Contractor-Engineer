@@ -1,11 +1,13 @@
-import { ArrowRight, Award, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, Award, ShieldCheck, Users, CheckCircle } from 'lucide-react';
 
 export default function HeroSection({
   title,
   subtitle,
   buttonText,
   buttonLink,
-  videoSrc = "",
+  secondaryText,
+  secondaryLink,
+  videoSrc = '',
   showStats = true,
 }) {
   const scrollToContent = () => {
@@ -18,142 +20,157 @@ export default function HeroSection({
   };
 
   return (
-    <section className="relative w-full min-h-[90vh] sm:min-h-[100vh] flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
+    <section className='relative h-[70vh] lg:h-screen overflow-hidden'>
       {videoSrc ? (
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover"
+          className='absolute inset-0 h-full w-full object-cover'
         >
-          <source src={videoSrc} type="video/mp4" />
+          <source src={videoSrc} type='video/mp4' />
         </video>
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800" />
+        <div className='absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800' />
       )}
 
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 sm:-top-60 -right-40 sm:-right-60 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-amber-500/20 rounded-full blur-[80px] sm:blur-[100px] animate-float"></div>
-        <div classclassName="absolute -bottom-40 sm:-bottom-60 -left-40 sm:-left-60 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-orange-500/15 rounded-full blur-[80px] sm:blur-[100px] animate-float" style={{ animationDelay: '1.5s' }}></div>
-        
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%200h40v40H0V0zm1%201h38v1H1V1zm0%206h38v1H1V7zm0%206h38v1H1v-1zm0%206h38v1H1v-1zm0%206h38v1H1v-1zm0%206h38v1H1v-1zm0%206h38v1H1v-1z%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.04%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] opacity-60"></div>
-
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 0)',
-          backgroundSize: '32px 32px'
-        }}></div>
+      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
+        <div className='absolute top-0 right-0 w-full h-full bg-gradient-to-l from-slate-900/80 via-slate-900/40 to-transparent' />
+        <div className='absolute -top-32 -right-32 w-64 h-64 lg:w-96 lg:h-96 bg-amber-500/15 rounded-full blur-[100px]'></div>
+        <div className='absolute -bottom-32 -left-32 w-64 h-64 lg:w-96 lg:h-96 bg-orange-500/10 rounded-full blur-[100px]'></div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/50 to-slate-900/20" />
-
-      <div className="relative z-10 w-full max-w-7xl px-3 sm:px-4 lg:px-8 py-6 sm:py-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-4 sm:mb-6 inline-flex animate-fadeInUp stagger-1">
-            <div className="flex items-center gap-2 sm:gap-3 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md px-3 sm:px-5 py-1.5 sm:py-2">
-              <Award className="h-3.5 sm:h-5 w-3.5 sm:w-5 text-amber-400" />
-              <span className="text-xs sm:text-sm font-bold text-amber-100 uppercase tracking-wider">Established 2000</span>
-              <span className="hidden sm:block mx-2 h-1 w-1 rounded-full bg-amber-500/50"></span>
-              <span className="hidden sm:block text-xs sm:text-sm font-bold text-blue-200 uppercase tracking-wider">ISO 9001:2015</span>
-            </div>
+      <div className='relative z-10 w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='h-full flex flex-col justify-between py-6 lg:py-12'>
+          <div className='flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 w-fit backdrop-blur-sm'>
+            <Award className='w-3.5 h-3.5 text-amber-400' />
+            <span className='text-xs font-semibold text-amber-100'>Since 2000</span>
+            <span className='w-1 h-1 rounded-full bg-amber-500/50'></span>
+            <span className='text-xs font-semibold text-blue-200'>ISO 9001</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight text-white animate-fadeInUp stagger-2">
-            <span className="block">Engineering</span>
-            <span className="block mt-1">
-              Excellence{' '}
-              <span className="relative">
-                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 animate-gradient">Since 2000</span>
-                <svg className="absolute -bottom-1 sm:-bottom-2 left-0 w-full h-3 sm:h-4 text-amber-500/30" viewBox="0 0 200 20" preserveAspectRatio="none">
-                  <path d="M2,14 Q50,18 100,14 T198,14" stroke="currentColor" strokeWidth="6" fill="none" />
-                </svg>
+          <div className='flex-1 flex flex-col justify-center'>
+            <h1 className='text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight'>
+              Building
+              <span className='block text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400'>
+                Infrastructure
               </span>
-            </span>
-          </h1>
+              <span className='block'>Tomorrow</span>
+            </h1>
 
-          <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm lg:text-base leading-relaxed text-slate-300 animate-fadeInUp stagger-3">
-            {subtitle || "Leading infrastructure contractor specializing in sewer systems, fire line installations, and water utility infrastructure across India."}
-          </p>
+            <p className='mt-3 sm:mt-4 text-sm sm:text-base lg:text-lg text-slate-300 max-w-lg leading-relaxed'>
+              {subtitle || 'Leading infrastructure contractor specializing in sewer systems, fire line installations, and water utility infrastructure across India.'}
+            </p>
 
-          <div className="mt-6 sm:mt-8 flex flex-col items-center justify-center gap-2 sm:gap-4 animate-fadeInUp stagger-4">
-            <a
-              href={buttonLink || "/contact"}
-              className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-5 sm:px-7 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-amber-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-amber-500/40 overflow-hidden"
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <span className="relative flex items-center gap-2">
-                {buttonText || "Get a Quote"}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </a>
-            <a
-              href="/projects"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-5 sm:px-7 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:scale-105"
-            >
-              View Our Work
-            </a>
-          </div>
-
-          <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6 animate-fadeInUp stagger-5">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 sm:h-10 w-8 sm:w-10 items-center justify-center rounded-full bg-amber-500/20 border border-amber-500/30">
-                <Award className="h-4 sm:h-5 w-4 sm:w-5 text-amber-400" />
-              </div>
-              <div className="text-left">
-                <p className="text-sm sm:text-lg font-bold text-white">25+</p>
-                <p className="text-[10px] sm:text-xs text-slate-400">Years</p>
-              </div>
+            <div className='mt-6 sm:mt-8 flex flex-wrap gap-4'>
+              <a
+                href={buttonLink || '/contact'}
+                className='inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-white shadow-lg shadow-amber-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/40 hover:scale-105'
+              >
+                {buttonText || 'Get a Quote'}
+                <ArrowRight className='w-5 h-5' />
+              </a>
+              {secondaryText && (
+                <a
+                  href={secondaryLink || '/projects'}
+                  className='inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:bg-white/20 hover:border-white/50'
+                >
+                  {secondaryText}
+                </a>
+              )}
             </div>
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 sm:h-10 w-8 sm:w-10 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30">
-                <ShieldCheck className="h-4 sm:h-5 w-4 sm:w-5 text-emerald-400" />
+
+            <div className='hidden lg:flex flex-wrap items-center gap-6 mt-6 text-sm text-slate-400'>
+              <div className='flex items-center gap-2'>
+                <CheckCircle className='w-5 h-5 text-emerald-400' />
+                <span>ISO Certified</span>
               </div>
-              <div className="text-left">
-                <p className="text-sm sm:text-lg font-bold text-white">120+</p>
-                <p className="text-[10px] sm:text-xs text-slate-400">Projects</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 sm:h-10 w-8 sm:w-10 items-center justify-center rounded-full bg-blue-500/20 border border-blue-500/30">
-                <Users className="h-4 sm:h-5 w-4 sm:w-5 text-blue-400" />
-              </div>
-              <div className="text-left">
-                <p className="text-sm sm:text-lg font-bold text-white">400+</p>
-                <p className="text-[10px] sm:text-xs text-slate-400">Workforce</p>
+              <div className='flex items-center gap-2'>
+                <CheckCircle className='w-5 h-5 text-emerald-400' />
+                <span>Government Approved</span>
               </div>
             </div>
           </div>
-        </div>
 
-        {showStats && (
-          <div className="mt-8 sm:mt-10 grid grid-cols-4 gap-2 sm:gap-3 animate-fadeInUp stagger-5">
+          {/* Mobile Stats Grid */}
+          <div className='lg:hidden grid grid-cols-4 gap-3'>
             {[
-              { value: "120+", label: "Projects" },
-              { value: "25+", label: "Years" },
-              { value: "98%", label: "On-Time" },
-              { value: "10+", label: "Govt" },
+              { value: '25+', label: 'Years' },
+              { value: '120+', label: 'Projects' },
+              { value: '400+', label: 'Workers' },
+              { value: '98%', label: 'On-Time' },
             ].map((stat, idx) => (
               <div
-                key={stat.label}
-                className="rounded-lg sm:rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-2 sm:p-3 text-center hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300"
+                key={idx}
+                className='bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-3 text-center'
               >
-                <p className="text-xs sm:text-lg font-bold text-white">{stat.value}</p>
-                <p className="text-[10px] sm:text-xs text-slate-400">{stat.label}</p>
+                <p className='text-lg font-bold text-white'>{stat.value}</p>
+                <p className='text-[10px] text-slate-400'>{stat.label}</p>
               </div>
             ))}
           </div>
-        )}
-      </div>
 
-      <button
-        onClick={scrollToContent}
-        className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 cursor-pointer text-white/50 transition-all duration-300 hover:text-amber-400"
-      >
-        <span className="text-[10px] font-medium uppercase tracking-widest">Explore</span>
-        <div className="h-6 sm:h-8 w-4 sm:w-5 rounded-full border border-white/30 bg-white/5">
-          <div className="absolute left-1/2 top-1 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-gradient-to-b from-amber-400 to-orange-500 animate-bounce" />
+          {/* Desktop Stats Card (Right Side) */}
+          <div className='hidden lg:block absolute top-1/2 right-4 lg:right-8 xl:right-12 -translate-y-1/2 w-72 lg:w-80 xl:w-96'>
+            <div className='relative'>
+              <div className='absolute inset-0 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-3xl blur-2xl'></div>
+              <div className='relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 lg:p-8 space-y-4 lg:space-y-6'>
+                <div className='grid grid-cols-2 gap-3 lg:gap-4'>
+                  <div className='bg-white/5 rounded-2xl p-3 lg:p-4 text-center border border-white/5 hover:bg-white/10 transition-colors'>
+                    <div className='w-8 h-8 lg:w-10 lg:h-10 mx-auto mb-2 lg:mb-3 rounded-xl bg-amber-500/20 flex items-center justify-center'>
+                      <Award className='w-4 h-4 lg:w-5 lg:h-5 text-amber-400' />
+                    </div>
+                    <p className='text-xl lg:text-2xl font-bold text-white'>25+</p>
+                    <p className='text-xs lg:text-sm text-slate-400'>Years</p>
+                  </div>
+                  <div className='bg-white/5 rounded-2xl p-3 lg:p-4 text-center border border-white/5 hover:bg-white/10 transition-colors'>
+                    <div className='w-8 h-8 lg:w-10 lg:h-10 mx-auto mb-2 lg:mb-3 rounded-xl bg-emerald-500/20 flex items-center justify-center'>
+                      <ShieldCheck className='w-4 h-4 lg:w-5 lg:h-5 text-emerald-400' />
+                    </div>
+                    <p className='text-xl lg:text-2xl font-bold text-white'>120+</p>
+                    <p className='text-xs lg:text-sm text-slate-400'>Projects</p>
+                  </div>
+                  <div className='bg-white/5 rounded-2xl p-3 lg:p-4 text-center border border-white/5 hover:bg-white/10 transition-colors'>
+                    <div className='w-8 h-8 lg:w-10 lg:h-10 mx-auto mb-2 lg:mb-3 rounded-xl bg-blue-500/20 flex items-center justify-center'>
+                      <Users className='w-4 h-4 lg:w-5 lg:h-5 text-blue-400' />
+                    </div>
+                    <p className='text-xl lg:text-2xl font-bold text-white'>400+</p>
+                    <p className='text-xs lg:text-sm text-slate-400'>Workers</p>
+                  </div>
+                  <div className='bg-white/5 rounded-2xl p-3 lg:p-4 text-center border border-white/5 hover:bg-white/10 transition-colors'>
+                    <div className='w-8 h-8 lg:w-10 lg:h-10 mx-auto mb-2 lg:mb-3 rounded-xl bg-purple-500/20 flex items-center justify-center'>
+                      <CheckCircle className='w-4 h-4 lg:w-5 lg:h-5 text-purple-400' />
+                    </div>
+                    <p className='text-xl lg:text-2xl font-bold text-white'>98%</p>
+                    <p className='text-xs lg:text-sm text-slate-400'>On-Time</p>
+                  </div>
+                </div>
+
+                <div className='pt-3 lg:pt-4 border-t border-white/10'>
+                  <p className='text-xs lg:text-sm text-slate-400 mb-2 lg:mb-3'>Trusted by</p>
+                  <div className='flex items-center justify-between opacity-60'>
+                    <span className='text-[10px] lg:text-xs font-medium text-slate-300'>Govt. of India</span>
+                    <span className='text-[10px] lg:text-xs font-medium text-slate-300'>MCGM</span>
+                    <span className='text-[10px] lg:text-xs font-medium text-slate-300'>MMRDA</span>
+                    <span className='text-[10px] lg:text-xs font-medium text-slate-300'>PWD</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={scrollToContent}
+            className='absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 hover:text-amber-400 transition-colors cursor-pointer'
+          >
+            <span className='text-[10px] font-medium uppercase tracking-widest'>Scroll</span>
+            <div className='w-5 h-8 rounded-full border-2 border-white/20 flex justify-center pt-1.5'>
+              <div className='w-1.5 h-2.5 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full animate-bounce'></div>
+            </div>
+          </button>
         </div>
-      </button>
+      </div>
     </section>
   );
 }

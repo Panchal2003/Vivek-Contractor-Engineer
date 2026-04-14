@@ -57,13 +57,13 @@ export default function ServicePage() {
     { label: "Awards Won", value: 10, icon: "fa-solid fa-trophy", appendPlus: true },
   ];
 
-  return (
-    <div className="font-sans">
+return (
+    <div className='font-sans'>
       <HeroSection
-        title="Our Services"
-        subtitle="Comprehensive engineering solutions for infrastructure development"
-        buttonText="Contact Us"
-        buttonLink="/contact"
+        title='Our Services'
+        subtitle='Comprehensive engineering solutions for sewer systems, fire line installations, water utilities, and heavy infrastructure projects across India.'
+        buttonText='Contact Us'
+        buttonLink='/contact'
         showStats={false}
       />
 

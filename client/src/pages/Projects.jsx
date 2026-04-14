@@ -53,13 +53,13 @@ export default function ProjectPage() {
     { value: "10+", label: "Government Contracts" },
   ];
 
-  return (
-    <div className="font-sans text-slate-900">
+return (
+    <div className='font-sans text-slate-900'>
       <HeroSection
-        title="Our Projects"
-        subtitle="Delivering excellence in infrastructure across India"
-        buttonText="Contact Us"
-        buttonLink="/contact"
+        title='Our Projects'
+        subtitle='Showcasing 120+ successful infrastructure projects including municipal sewer networks, industrial fire safety systems, and water treatment plants across India.'
+        buttonText='Contact Us'
+        buttonLink='/contact'
         showStats={false}
       />
 

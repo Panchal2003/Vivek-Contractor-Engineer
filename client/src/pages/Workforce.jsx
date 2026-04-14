@@ -38,13 +38,13 @@ export default function Workforce() {
     "Government Contractor License",
   ];
 
-  return (
-    <div className="text-slate-900">
+return (
+    <div className='text-slate-900'>
       <HeroSection
-        title="Our Workforce"
-        subtitle="Dedicated professionals committed to excellence"
-        buttonText="Contact Us"
-        buttonLink="/contact"
+        title='Our Workforce'
+        subtitle='Team of 400+ skilled workers, experienced engineers, and safety professionals delivering quality infrastructure projects with ISO compliance.'
+        buttonText='Contact Us'
+        buttonLink='/contact'
         showStats={false}
       />
 

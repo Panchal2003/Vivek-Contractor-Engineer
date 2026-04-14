@@ -7,11 +7,11 @@ import SITE_CONFIG from "../config/siteConfig";
 export default function About() {
   return (
     <div className="text-slate-900">
-      <HeroSection
-        title="About Us"
-        subtitle="Engineering excellence with nationwide delivery capability."
-        buttonText="Contact Us"
-        buttonLink="/contact"
+<HeroSection
+        title='About Us'
+        subtitle='Trusted infrastructure contractor with 25+ years of experience in sewer systems, fire line installations, and water utility projects across India.'
+        buttonText='Contact Us'
+        buttonLink='/contact'
         showStats={false}
       />
 

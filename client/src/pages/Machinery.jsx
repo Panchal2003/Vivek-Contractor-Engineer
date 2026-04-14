@@ -63,13 +63,13 @@ export default function MachineryPage() {
     "Debris removal and transportation",
   ];
 
-  return (
-    <div className="font-sans text-slate-900">
+return (
+    <div className='font-sans text-slate-900'>
       <HeroSection
-        title="Our Machinery"
-        subtitle="State-of-the-art equipment for infrastructure projects"
-        buttonText="Contact Us"
-        buttonLink="/contact"
+        title='Our Machinery'
+        subtitle='Fleet of 50+ well-maintained machines including excavators, bulldozers, cranes, drilling rigs, and tipper trucks for heavy infrastructure projects.'
+        buttonText='Contact Us'
+        buttonLink='/contact'
         showStats={false}
       />
 
